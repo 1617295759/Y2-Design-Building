@@ -56,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</li>
 			<li>E-mail :<input type="text" id="email" name="email"/></li>
 			<li>phone :<input type="text" id="phone" name="phone"/></li>
-			<li>age :<input type="text" id="age" name="age"/></li>
+			<li>address :<input type="text" id="address" name="address"/></li>
 			<li><input type="image" src="image/submit.png" width="90"></li>
 		</ul>	
 	</form>

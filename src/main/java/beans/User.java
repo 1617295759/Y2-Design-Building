@@ -3,14 +3,17 @@ package beans;
 public class User {
 
   private String name;
-  private long userId;
+  private int userId;
   private String gender;
   private String telNo;
   private String password;
   private String address;
   private String email;
-  private long deleted;
+  private boolean deleted;
 
+  public User() {
+    this.deleted = false;
+  }
 
   public String getName() {
     return name;
@@ -21,11 +24,11 @@ public class User {
   }
 
 
-  public long getUserId() {
+  public int getUserId() {
     return userId;
   }
 
-  public void setUserId(long userId) {
+  public void setUserId(int userId) {
     this.userId = userId;
   }
 
@@ -75,12 +78,25 @@ public class User {
   }
 
 
-  public long getDeleted() {
+  public boolean getDeleted() {
     return deleted;
   }
 
-  public void setDeleted(long deleted) {
+  public void setDeleted(boolean deleted) {
     this.deleted = deleted;
   }
 
+  @Override
+  public String toString() {
+    return "User{" +
+            "name='" + name + '\'' +
+            ", userId=" + userId +
+            ", gender='" + gender + '\'' +
+            ", telNo='" + telNo + '\'' +
+            ", password='" + password + '\'' +
+            ", address='" + address + '\'' +
+            ", email='" + email + '\'' +
+            ", deleted=" + deleted +
+            '}';
+  }
 }

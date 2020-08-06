@@ -43,4 +43,13 @@ public class Administrator {
     this.deleted = deleted;
   }
 
+  @Override
+  public String toString() {
+    return "Administrator{" +
+            "administratorId=" + administratorId +
+            ", account='" + account + '\'' +
+            ", password='" + password + '\'' +
+            ", deleted=" + deleted +
+            '}';
+  }
 }

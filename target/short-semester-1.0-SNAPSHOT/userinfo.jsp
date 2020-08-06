@@ -1,6 +1,6 @@
 <%@page import="vo.Orders.*"%>
 <%@page import="vo.Cart.*"%>
-<%@page import="vo.User.*"%>
+<%@page import="beans.User.*"%>
 
 <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -38,12 +38,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<p> <a href=./index.jsp target="_self">Back to index</a>
   	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   	<a href=./product target="_self">Watch for Product</a> </p>
-    <p>Welcome ${user.getUsername()}</p>
+    <p>Welcome ${user.getName()}</p>
     <ul>
-    	<li>Your age : ${user.getAge()}</li>
     	<li>Your E-mail : ${user.getEmail()}</li>
-    	<li>Your sex : ${user.getSex()}</li>
-    	<li>Your phoneNo : ${user.getPhone()}</li>
+    	<li>Your sex : ${user.getGender()}</li>
+    	<li>Your phoneNo : ${user.getTelNo()}</li>
+        <li>Your address : ${user.getAddress()}</li>
     </ul>
     
     <p> <a href=./modifyuserinfo.jsp target=“_self”>

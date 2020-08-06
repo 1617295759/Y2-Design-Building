@@ -1,8 +1,8 @@
 package servlet;
 
+import beans.User;
 import dao.UserDAO;
 import dao.impl.UserDAOImpl;
-import vo.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,40 +25,16 @@ public class ModifyServlet extends HttpServlet {
 		User olduser = (User) session.getAttribute("user");
 		
 		User user = new User();
-		user.setUsername(olduser.getUsername());
-		if(req.getParameter("password")!=null) {
-			user.setPassword(req.getParameter("password"));
-		}else {
-			user.setPassword(olduser.getPassword());
-		}
-		
-		if(req.getParameter("sex")!=null) {
-			user.setSex(req.getParameter("sex"));
-		}else {
-			user.setSex(olduser.getSex());
-		}
-		
-		if(req.getParameter("age")!="") {
-			user.setAge(Integer.parseInt(req.getParameter("age")));
-		}else {
-			user.setAge(olduser.getAge());
-		}
-		
-		if(req.getParameter("email")!="") {
-			user.setEmail(req.getParameter("email"));
-		}else {
-			user.setEmail(olduser.getEmail());
-		}
-		
-		if(req.getParameter("phone")!="") {
-			user.setPhone(req.getParameter("phone"));
-		}else {
-			user.setPhone(olduser.getPhone());
-		}
-		
+		user.setName(olduser.getName());
+
+		user.setPassword(req.getParameter("password"));
+		user.setGender(req.getParameter("sex"));
+		user.setEmail(req.getParameter("email"));
+		user.setTelNo(req.getParameter("phone"));
+		user.setAddress(req.getParameter("address"));
 		UserDAO dao = new UserDAOImpl();
-		dao.updateInfo(olduser.getUsername(),user);
-		session.setAttribute("user", user);
+		dao.updateInfo(olduser.getName(),user);
+		session.setAttribute("user", dao.getUser(olduser.getName()));
 		req.getRequestDispatcher("./userinfo.jsp").forward(req, resp);
 	}
 

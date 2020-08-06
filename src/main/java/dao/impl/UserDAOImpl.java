@@ -1,9 +1,14 @@
 package dao.impl;
+
+import beans.User;
 import dao.UserDAO;
 import database.DBConnect;
+import database.DBUtils;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import vo.Cart;
 import vo.Orders;
-import vo.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,60 +16,81 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-
 public class UserDAOImpl implements UserDAO {
+    JdbcTemplate template;
+    public UserDAOImpl() {
+        template = DBUtils.getTemplate();
+    }
 
-	//judge whether user's name and password matches
+    //judge whether user's name and password matches 1-success,0-error
+    @Override
 	public int queryByUsername(User user) {
 		int flag = 0;
-		String sql = "select * from mydb.user where username=?";
-        PreparedStatement pstmt = null ;   
-        DBConnect dbc = null;
-        try{   
-            dbc = new DBConnect() ;
-            pstmt = dbc.getConnection().prepareStatement(sql); 
-            pstmt.setString(1,user.getUsername()) ;   
-            ResultSet rs = pstmt.executeQuery();
-            while(rs.next()){  
-                if(rs.getString("password").equals(user.getPassword())){
-                	flag = 1;
-                } 
-            }   
-            rs.close() ; 
-            pstmt.close() ;   
-        }catch (SQLException e){   
-            System.out.println(e.getMessage());   
-        }finally{   
-            dbc.close() ;   
-        }   
+        String sql = "select * from iotbackstage2.user where name=?";
+        try{
+            User dbuser = template.queryForObject(sql,
+                    new BeanPropertyRowMapper<User>(User.class),
+                    user.getName());
+            if(dbuser.getPassword().equals(user.getPassword())){
+                flag = 1;
+            }else{
+                flag = 0;
+            }
+        }catch(EmptyResultDataAccessException e){
+            flag = 0;
+        }
+
 		return flag;
 	}
 
+    @Override
+    public User getUser(String username) {
+        String sql = "select * from iotbackstage2.user where name=?";
+        User dbuser = template.queryForObject(sql,
+                new BeanPropertyRowMapper<beans.User>(beans.User.class),
+                username);
+        return dbuser;
+    }
 	
 	@Override
 	public void updateInfo(String username, User user) {
-		String sql = "update mydb.user set password = ?, sex=?,email=?,phone=?,age=? where username = ?";
-        PreparedStatement pstmt = null ;   
-        DBConnect dbc = null;   
-        try{
+		String sql = "UPDATE `iotbackstage2`.`user` SET `gender` = ?, " +
+                "`telNo` = ?, `password` = ?, `address` = ?, `email` = ?, `deleted` = ? " +
+                "WHERE (`name` = ?)";
 
-            dbc = new DBConnect() ;
-            pstmt = dbc.getConnection().prepareStatement(sql);
-            pstmt.setString(1,user.getPassword());
-            pstmt.setString(2, user.getSex());
-            pstmt.setString(3, user.getEmail());
-            pstmt.setString(4, user.getPhone());
-            pstmt.setInt(5, user.getAge());
-            pstmt.setString(6, username);
-            pstmt.execute();
-            pstmt.close() ;  
-        }catch (SQLException e){   
-            System.out.println(e.getMessage());   
-        }finally{   
-            dbc.close() ;   
-        } 
-		
+		User dbuser = new UserDAOImpl().getUser(username);
+
+        String gender,telNo,password,address,email;
+        boolean deleted;
+        if((user.getGender()!=null)&&(!user.getGender().equals(""))){
+            gender = user.getGender();
+        }else{
+            gender = dbuser.getGender();
+        }
+        if((user.getTelNo()!=null)&&(!user.getTelNo().equals(""))){
+            telNo = user.getTelNo();
+        }else{
+            telNo = dbuser.getTelNo();
+        }
+        if ((user.getPassword()!=null)&&(!user.getPassword().equals(""))){
+            password = user.getPassword();
+        }else{
+            password = dbuser.getPassword();
+        }
+        if ((user.getAddress()!=null)&&(!user.getAddress().equals("")) ){
+            address = user.getAddress();
+        }else{
+            address = dbuser.getAddress();
+        }
+        if((user.getEmail()!=null)&&(!user.getEmail().equals(""))){
+            email = user.getEmail();
+        }else{
+            email = dbuser.getEmail();
+        }
+
+        template.update(sql,gender,telNo,password,address,email,user.getDeleted(),username);
 	}
+
 
 	@Override
 	public void addCart(String username, String productname) {
@@ -203,31 +229,5 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 
-	@Override
-	public User getUser(String username) {
-		User user = new User();
-		String sql = "select * from mydb.user where username = ?";
-        PreparedStatement pstmt = null ;   
-        DBConnect dbc = null;   
-        try{   
-            dbc = new DBConnect() ;
-            pstmt = dbc.getConnection().prepareStatement(sql); 
-            pstmt.setString(1, username);
-            ResultSet rs = pstmt.executeQuery();
-            rs.next();
-            user.setUsername(rs.getString(1));
-            user.setPassword(rs.getString(2));
-            user.setSex(rs.getString(3));
-            user.setEmail(rs.getString(4));
-            user.setPhone(rs.getString(5));
-            user.setAge(rs.getInt(6));
-            rs.close();
-            pstmt.close() ;   
-        }catch (SQLException e){   
-            System.out.println(e.getMessage());   
-        }finally{   
-            dbc.close() ;   
-        }
-		return user; 
-	}
+
 }	

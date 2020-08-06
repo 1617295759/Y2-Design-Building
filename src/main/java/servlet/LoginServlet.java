@@ -1,11 +1,11 @@
 package servlet;
 
 
+import beans.User;
 import dao.UserDAO;
 import dao.impl.UserDAOImpl;
 import vo.Cart;
 import vo.Orders;
-import vo.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,8 +28,8 @@ public class LoginServlet extends HttpServlet {
 			req.getRequestDispatcher("./login.jsp").forward(req, res);
 		}else {
 			UserDAO dao = new UserDAOImpl();
-			ArrayList<Cart> carts = dao.sortCartBytime(user.getUsername());
-			ArrayList<Orders> orders = dao.sortOrderByTime(user.getUsername());
+			ArrayList<Cart> carts = dao.sortCartBytime(user.getName());
+			ArrayList<Orders> orders = dao.sortOrderByTime(user.getName());
 			session.setAttribute("carts", carts);
 			session.setAttribute("orders", orders);
 			req.getRequestDispatcher("./userinfo.jsp").forward(req, res);
@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
 	 public void doPost(HttpServletRequest req, HttpServletResponse res)
 	    throws IOException, ServletException{
 		 User user = new User();
-		 user.setUsername(req.getParameter("username"));
+		 user.setName(req.getParameter("username"));
 		 user.setPassword(req.getParameter("password"));
 		 
 		 UserDAO dao = new UserDAOImpl();   
@@ -47,12 +47,12 @@ public class LoginServlet extends HttpServlet {
 	     flag = dao.queryByUsername(user);
 		 if(flag == 1){   
 			 HttpSession session=req.getSession();
-			 ArrayList<Cart> carts = dao.sortCartBytime(user.getUsername());
-			 ArrayList<Orders> orders = dao.sortOrderByTime(user.getUsername());
+			 ArrayList<Cart> carts = dao.sortCartBytime(user.getName());
+			 ArrayList<Orders> orders = dao.sortOrderByTime(user.getName());
 
 			 session.setAttribute("carts", carts);
 			 session.setAttribute("orders", orders);
-			 session.setAttribute("user", dao.getUser(user.getUsername()));
+			 session.setAttribute("user", dao.getUser(user.getName()));
 	         req.getRequestDispatcher("./userinfo.jsp").forward(req, res);
 	         } else {   
 	         res.sendRedirect("./error.jsp");

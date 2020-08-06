@@ -1,76 +1,60 @@
 package beans;
 
+import java.sql.Timestamp;
+
 public class Cart {
 
-  private long cartId;
-  private long userId;
-  private long commodityId;
-  private java.sql.Timestamp time;
-  private long amount;
+  private int cartId;
+  private int userId;
+  private int commodityId;
+  private Timestamp time;
+  private int amount;
   private double price;
-  private long deleted;
+  //该条购物车信息是否被删除
+  private boolean deleted;
 
+  public int getCartId() { return cartId; }
 
-  public long getCartId() {
-    return cartId;
-  }
+  public void setCartId(int cartId) { this.cartId = cartId; }
 
-  public void setCartId(long cartId) {
-    this.cartId = cartId;
-  }
+  public int getUserId() { return userId; }
 
+  public void setUserId(int userId) { this.userId = userId; }
 
-  public long getUserId() {
-    return userId;
-  }
+  public int getCommodityId() { return commodityId; }
 
-  public void setUserId(long userId) {
-    this.userId = userId;
-  }
+  public void setCommodityId(int commodityId) { this.commodityId = commodityId; }
 
+  public Timestamp getTime() { return time; }
 
-  public long getCommodityId() {
-    return commodityId;
-  }
+  public void setTime(Timestamp time) { this.time = time; }
 
-  public void setCommodityId(long commodityId) {
-    this.commodityId = commodityId;
-  }
+  public int getAmount() { return amount; }
 
+  public void setAmount(int amount) { this.amount = amount; }
 
-  public java.sql.Timestamp getTime() {
-    return time;
-  }
+  public double getPrice() { return price; }
 
-  public void setTime(java.sql.Timestamp time) {
-    this.time = time;
-  }
+  public void setPrice(double price) { this.price = price; }
 
-
-  public long getAmount() {
-    return amount;
-  }
-
-  public void setAmount(long amount) {
-    this.amount = amount;
-  }
-
-
-  public double getPrice() {
-    return price;
-  }
-
-  public void setPrice(double price) {
-    this.price = price;
-  }
-
-
-  public long getDeleted() {
+  public boolean isDeleted() {
     return deleted;
   }
 
-  public void setDeleted(long deleted) {
+  public void setDeleted(boolean deleted) {
     this.deleted = deleted;
   }
 
+  @Override
+  public String toString() {
+    return "Cart{" +
+            "cartId=" + cartId +
+            ", userId=" + userId +
+            ", commodityId=" + commodityId +
+            ", time=" + time +
+            ", amount=" + amount +
+            ", price=" + price +
+            ", deleted=" + deleted +
+            '}';
+  }
 }

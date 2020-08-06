@@ -1,21 +1,21 @@
 package dao;
 
-import vo.Product;
+import beans.Product;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface ProductDAO {
 	//
-	public ArrayList<Product> searchKey(String keyword);
+	public List<Product> searchKey(String keyword);
 	//
-	public ArrayList<Product> searchKind(String kind);
+	public List<Product> searchKind(String kind);
 	//
-	public ArrayList<Product> sortByAddedtimeAsc();
+	public List<Product> sortByAddedtimeAsc();
 	//
-	public ArrayList<Product> sortByAddedtimeDesc();
+	public List<Product> sortByAddedtimeDesc();
 	
-	public ArrayList<Product> sortByPriceDesc();
+	public List<Product> sortByPriceDesc();
 	
-	public ArrayList<Product> sortByPriceAsc();
+	public List<Product> sortByPriceAsc();
 
 }

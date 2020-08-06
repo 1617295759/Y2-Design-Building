@@ -3,19 +3,19 @@ package beans;
 
 public class Merchant {
 
-  private long merchantId;
+  private int merchantId;
   private String name;
   private String shipAddress;
   private String account;
   private String password;
-  private long deleted;
+  private boolean deleted;
 
 
   public long getMerchantId() {
     return merchantId;
   }
 
-  public void setMerchantId(long merchantId) {
+  public void setMerchantId(int merchantId) {
     this.merchantId = merchantId;
   }
 
@@ -56,11 +56,11 @@ public class Merchant {
   }
 
 
-  public long getDeleted() {
+  public boolean getDeleted() {
     return deleted;
   }
 
-  public void setDeleted(long deleted) {
+  public void setDeleted(boolean deleted) {
     this.deleted = deleted;
   }
 

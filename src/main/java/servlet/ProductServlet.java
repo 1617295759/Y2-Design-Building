@@ -1,8 +1,8 @@
 package servlet;
 
+import beans.Product;
 import dao.ProductDAO;
 import dao.impl.ProductDAOImpl;
-import vo.Product;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
+
 @WebServlet("/product")
 public class ProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -30,7 +31,7 @@ public class ProductServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String choice = req.getParameter("searchchoice");
 		ProductDAO dao = new ProductDAOImpl();
-		ArrayList<Product> products = null;
+		List<Product> products = null;
 		switch(choice) {
 			case "searchbykeywords":
 				products = dao.searchKey(req.getParameter("keywords"));

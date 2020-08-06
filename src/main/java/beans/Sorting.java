@@ -1,31 +1,30 @@
 package beans;
 
-
 public class Sorting {
 
-  private long sortId;
-  private long amount;
+  private int sortId;
+  private int amount;
   private String state;
   private double price;
-  private long deleted;
-  private long orderId;
-  private long commodityId;
+  private boolean deleted;
+  private int orderId;
+  private int commodityId;
 
 
-  public long getSortId() {
+  public int getSortId() {
     return sortId;
   }
 
-  public void setSortId(long sortId) {
+  public void setSortId(int sortId) {
     this.sortId = sortId;
   }
 
 
-  public long getAmount() {
+  public int getAmount() {
     return amount;
   }
 
-  public void setAmount(long amount) {
+  public void setAmount(int amount) {
     this.amount = amount;
   }
 
@@ -48,30 +47,42 @@ public class Sorting {
   }
 
 
-  public long getDeleted() {
+  public boolean getDeleted() {
     return deleted;
   }
 
-  public void setDeleted(long deleted) {
+  public void setDeleted(boolean deleted) {
     this.deleted = deleted;
   }
 
 
-  public long getOrderId() {
+  public int getOrderId() {
     return orderId;
   }
 
-  public void setOrderId(long orderId) {
+  public void setOrderId(int orderId) {
     this.orderId = orderId;
   }
 
 
-  public long getCommodityId() {
+  public int getCommodityId() {
     return commodityId;
   }
 
-  public void setCommodityId(long commodityId) {
+  public void setCommodityId(int commodityId) {
     this.commodityId = commodityId;
   }
 
+  @Override
+  public String toString() {
+    return "Sorting{" +
+            "sortId=" + sortId +
+            ", amount=" + amount +
+            ", state='" + state + '\'' +
+            ", price=" + price +
+            ", deleted=" + deleted +
+            ", orderId=" + orderId +
+            ", commodityId=" + commodityId +
+            '}';
+  }
 }

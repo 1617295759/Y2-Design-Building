@@ -1,8 +1,8 @@
 package dao;
 
+import beans.User;
 import vo.Cart;
 import vo.Orders;
-import vo.User;
 
 import java.util.ArrayList;
 

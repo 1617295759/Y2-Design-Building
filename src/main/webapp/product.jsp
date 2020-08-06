@@ -1,5 +1,5 @@
 
-<%@page import="vo.Product"%>
+<%@page import="beans.Product"%>
 <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
@@ -64,20 +64,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  		<c:forEach var="product" items = "${products}">
         <tr>  
            <th>name</th>  
-           <th>color</th>  
-           <th>kind</th>  
+           <th>appearance</th>
+           <th>superCatagory</th>
            <th>added time</th>  
-           <th>description</th>  
+           <th>functionality</th>
            <th>price</th>
            <th>image</th>
            <th>add it to the cart</th>     
         </tr>  
         <tr>
           <td>${product.getName()}</td>
-          <td>${product.getColor()}</td>
-          <td>${product.getKind()}</td> 
+          <td>${product.getAppearance()}</td>
+          <td>${product.getSuperCategory()}</td>
           <td>${product.getAddedTime()}</td> 
-          <td>${product.getInfo()}</td> 
+          <td>${product.getFunctionality()}</td>
           <td>${product.getPrice()}</td>
           <td><img alt="index" src=${product.getImgsrc()} width="100"></td>
           <td><a href="./addintocart?addintocartproduct=${product.getName()}"
