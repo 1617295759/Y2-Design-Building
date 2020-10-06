@@ -13,6 +13,15 @@ public class Order {
   private boolean deleted;
   private int userId;
 
+  public Order(){
+    orderTime =  new Timestamp(System.currentTimeMillis());
+  }
+  public Order(double price,String receiveAddress,int userID){
+    this.price = price;
+    this.receiveAddress = receiveAddress;
+    this.userId = userID;
+  }
+
   public int getOrderId() { return orderId; }
 
   public void setOrderId(int orderId) { this.orderId = orderId; }

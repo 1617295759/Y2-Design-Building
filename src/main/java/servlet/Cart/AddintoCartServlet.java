@@ -1,8 +1,9 @@
-package servlet;
+package servlet.Cart;
 
 import beans.User;
 import dao.CartDAO;
 import dao.impl.CartDAOImpl;
+import net.sf.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,26 +16,27 @@ import java.io.IOException;
 public class AddintoCartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	CartDAO dao = new CartDAOImpl();
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-		
-		HttpSession session=req.getSession();
-		User user = (User) session.getAttribute("user");
-		if(user != null) {
-			int product = Integer.parseInt(req.getParameter("addintocartproduct"));
-			dao.addCart(user.getUserId(),product,0);
-			req.getRequestDispatcher("./login").forward(req, resp);
-		}else {
-			req.getRequestDispatcher("./login.jsp").forward(req, resp);
-		}
-		//To do tell the customer it is added 
+		this.doPost(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 throws ServletException, IOException {
-		super.doPost(req, resp);
+		//获取当前用户
+		HttpSession session=req.getSession();
+		User user = (User) session.getAttribute("user");
+
+		int commodityID = Integer.parseInt(req.getParameter("commodityID"));
+		int amount = Integer.parseInt(req.getParameter("amount"));
+		boolean flag = dao.addCart(user.getUserId(),commodityID,amount);
+
+		JSONObject json = new JSONObject();  //创建Json对象
+		json.put("flag", flag);
+		resp.getWriter().write(json.toString());
 	}
 
 }

@@ -9,7 +9,14 @@ public class Sorting {
   private boolean deleted;
   private int orderId;
   private int commodityId;
-
+  public Sorting(){}
+  public Sorting(Cart cart){
+    this.amount = cart.getAmount();
+    this.state = "0";
+    this.price = cart.getPrice();
+    this.deleted = false;
+    this.commodityId = cart.getCommodityId();
+  }
 
   public int getSortId() {
     return sortId;

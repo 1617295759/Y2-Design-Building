@@ -3,6 +3,7 @@ package servlet;
 import beans.Product;
 import dao.ProductDAO;
 import dao.impl.ProductDAOImpl;
+import net.sf.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,10 +20,7 @@ public class ProductServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-		//get the products ArrayList and turn to product.jsp
-		ProductDAO dao =  new ProductDAOImpl();
-		req.getSession().setAttribute("products",dao.sortByAddedtimeDesc());
-		req.getRequestDispatcher("./product.jsp").forward(req, resp);
+		this.doPost(req,resp);
 	}
 
 	//screen the products and sort the products
@@ -52,7 +50,9 @@ public class ProductServlet extends HttpServlet {
 		}
 
 		req.getSession().setAttribute("products",products);
-		req.getRequestDispatcher("./product.jsp").forward(req, resp);
+		JSONObject json = new JSONObject();  //创建Json对象
+		json.put("products", products);
+		resp.getWriter().write(json.toString());
 	}
 
 }

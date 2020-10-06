@@ -3,6 +3,8 @@ import dao.impl.*;
 import database.DBUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.sql.Timestamp;
+
 public class test {
 
 
@@ -14,7 +16,7 @@ public class test {
         UserDAO userdao = new UserDAOImpl();
         ProductDAO prodao = new ProductDAOImpl();
 
-        System.out.println(prodao.sortByAddedtimeAsc());
-
+        //System.out.println(prodao.sortByAddedtimeAsc());
+        System.out.println( new Timestamp(System.currentTimeMillis()));
     }
 }

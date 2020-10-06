@@ -18,7 +18,7 @@ public class CartDAOImpl implements CartDAO {
     }
 
     @Override
-    public void addCart(int userID, int commodityID, int amount) {
+    public boolean addCart(int userID, int commodityID, int amount) {
         String sql0 = "SELECT price FROM iotbackstage2.commodity " +
                 "WHERE commodityID = ?";
         double price = template.queryForObject(sql0,Double.class,commodityID);
@@ -26,19 +26,21 @@ public class CartDAOImpl implements CartDAO {
         String sql = "insert into iotbackstage2.cart " +
                 "(userID, commodityID, time, amount,price,deleted) " +
                 "values (?,?,?,?,?,?)";
-        template.update(sql,userID, commodityID,
+        int  i = template.update(sql,userID, commodityID,
                 new Timestamp(System.currentTimeMillis()),amount,price,0);
+        return (i>0);
     }
 
     @Override
-    public void deleteCart(int cartID) {
+    public boolean deleteCart(int cartID) {
         String sql = "UPDATE `iotbackstage2`.`cart` " +
                 "SET `deleted` = '1' WHERE (`cartID` = ?)";
-        template.update(sql,cartID);
+        int i = template.update(sql,cartID);
+        return (i>0);
     }
 
     @Override
-    public ArrayList<Cart> sortCartBytime(int userID) {
+    public ArrayList<Cart> sortCartByTime(int userID) {
         List<Cart> list = new ArrayList<Cart>();
         String sql = "select * from "+ cart_schema + " where `deleted`=0 and userID=?  order by time";
         list = template.query(sql,new BeanPropertyRowMapper<Cart>(Cart.class),userID);

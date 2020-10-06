@@ -17,7 +17,8 @@ public class UserDAOImpl implements UserDAO {
     //judge whether user's name and password matches 1-success,0-error
     @Override
 	public int queryByUsername(User user) {
-		int flag;
+		//0-无账号，1-匹配，2-不匹配
+        int flag;
         String sql = "select * from "+ user_schema +" where name=?";
         try{
             User dbuser = template.queryForObject(sql,
@@ -26,7 +27,7 @@ public class UserDAOImpl implements UserDAO {
             if(dbuser.getPassword().equals(user.getPassword())){
                 flag = 1;
             }else{
-                flag = 0;
+                flag = 2;
             }
         }catch(EmptyResultDataAccessException e){
             flag = 0;
@@ -70,7 +71,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-	public void updateInfo(String username, User user) {
+	public boolean updateInfo(String username, User user) {
 		String sql = "UPDATE "+ user_schema +" SET `gender` = ?, " +
                 "`telNo` = ?, `password` = ?, `address` = ?, `email` = ?, `deleted` = ? " +
                 "WHERE (`name` = ?)";
@@ -104,6 +105,7 @@ public class UserDAOImpl implements UserDAO {
         }else{
             email = dbuser.getEmail();
         }
-        template.update(sql,gender,telNo,password,address,email,user.getDeleted(),username);
+        int i = template.update(sql,gender,telNo,password,address,email,user.getDeleted(),username);
+        return (i>0);
 	}
 }

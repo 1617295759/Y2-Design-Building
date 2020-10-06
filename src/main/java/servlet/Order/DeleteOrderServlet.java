@@ -1,7 +1,6 @@
-package servlet;
+package servlet.Order;
 
-import beans.Order;
-import beans.User;
+import com.alibaba.fastjson.JSONObject;
 import dao.OrderDAO;
 import dao.impl.OrderDAOImpl;
 
@@ -10,9 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Timestamp;
 @WebServlet("/deleteorder")
 public class DeleteOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -21,24 +18,17 @@ public class DeleteOrderServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-		
-		HttpSession session=req.getSession();
-		User user = (User) session.getAttribute("user");
-		Order order = new Order();
-		order.setUserId(user.getUserId());
-		//order.setProduct(req.getParameter("deletedorder"));
-		order.setOrderTime(Timestamp.valueOf(req.getParameter("deletedtime")));
-
-		dao.deleteOrder(order);
-		
-		req.getRequestDispatcher("./login").forward(req, resp);
+		this.doPost(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
+		int orderID = Integer.parseInt(req.getParameter("orderID"));
+		boolean flag = dao.deleteOrder(orderID);
+		JSONObject json = new JSONObject();  //创建Json对象
+		json.put("flag", flag);
+		resp.getWriter().write(json.toString());
 	}
 
 }
