@@ -13,6 +13,10 @@ public class Cart {
   //该条购物车信息是否被删除
   private boolean deleted;
 
+  public Cart() {
+    this.time = new Timestamp(System.currentTimeMillis());
+  }
+
   public int getCartId() { return cartId; }
 
   public void setCartId(int cartId) { this.cartId = cartId; }

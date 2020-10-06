@@ -48,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	}
     </script>
     
-    <form name="modify" method="post" action="./modifyuserinfo" onSubmit="return check()"> 
+    <form name="modify" id="modify" method="post" action="./modifyuserinfo" onSubmit="return check()">
 		<ul>	
 			<li>password : <input type="password" name="password"/></li>
 			<li>Sex : <input type="radio" name="sex" value="man"/>man

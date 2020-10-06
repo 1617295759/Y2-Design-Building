@@ -1,11 +1,15 @@
 package servlet;
 
 
+import beans.Cart;
+import beans.Order;
 import beans.User;
+import dao.CartDAO;
+import dao.OrderDAO;
 import dao.UserDAO;
+import dao.impl.CartDAOImpl;
+import dao.impl.OrderDAOImpl;
 import dao.impl.UserDAOImpl;
-import vo.Cart;
-import vo.Orders;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +23,8 @@ import java.util.ArrayList;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	CartDAO cartdao = new CartDAOImpl();
+	OrderDAO orderdao = new OrderDAOImpl();
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 	    throws IOException, ServletException{
@@ -27,9 +33,9 @@ public class LoginServlet extends HttpServlet {
 		if(user==null) {
 			req.getRequestDispatcher("./login.jsp").forward(req, res);
 		}else {
-			UserDAO dao = new UserDAOImpl();
-			ArrayList<Cart> carts = dao.sortCartBytime(user.getName());
-			ArrayList<Orders> orders = dao.sortOrderByTime(user.getName());
+
+			ArrayList<Cart> carts = cartdao.sortCartBytime(user.getUserId());
+			ArrayList<Order> orders = orderdao.sortOrderByTime(user.getUserId());
 			session.setAttribute("carts", carts);
 			session.setAttribute("orders", orders);
 			req.getRequestDispatcher("./userinfo.jsp").forward(req, res);
@@ -38,6 +44,14 @@ public class LoginServlet extends HttpServlet {
 	
 	 public void doPost(HttpServletRequest req, HttpServletResponse res)
 	    throws IOException, ServletException{
+
+		//1.设置编码
+		 req.setCharacterEncoding("utf-8");
+		 res.setContentType("text/json;charset=utf-8");
+		 //2.获取请求参数
+		 String userID = req.getParameter("userID");
+		 String phone = req.getParameter("phone");
+
 		 User user = new User();
 		 user.setName(req.getParameter("username"));
 		 user.setPassword(req.getParameter("password"));
@@ -47,8 +61,8 @@ public class LoginServlet extends HttpServlet {
 	     flag = dao.queryByUsername(user);
 		 if(flag == 1){   
 			 HttpSession session=req.getSession();
-			 ArrayList<Cart> carts = dao.sortCartBytime(user.getName());
-			 ArrayList<Orders> orders = dao.sortOrderByTime(user.getName());
+			 ArrayList<Cart> carts = cartdao.sortCartBytime(user.getUserId());
+			 ArrayList<Order> orders = orderdao.sortOrderByTime(user.getUserId());
 
 			 session.setAttribute("carts", carts);
 			 session.setAttribute("orders", orders);

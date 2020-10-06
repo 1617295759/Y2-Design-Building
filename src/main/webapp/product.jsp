@@ -82,7 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <td><img alt="index" src=${product.getImgsrc()} width="100"></td>
           <td><a href="./addintocart?addintocartproduct=${product.getName()}"
           		onclick="if(confirm('add this into your carts'+ '?')===false) return false;">add into cart</a></td>        
-          </tr>  
+          </tr>
 		</c:forEach>
 	</table>
   </body>

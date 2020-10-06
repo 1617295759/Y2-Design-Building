@@ -1,9 +1,9 @@
 package servlet;
 
-import dao.UserDAO;
-import dao.impl.UserDAOImpl;
-import vo.Orders;
-import vo.User;
+import beans.Order;
+import beans.User;
+import dao.OrderDAO;
+import dao.impl.OrderDAOImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +16,7 @@ import java.sql.Timestamp;
 @WebServlet("/deleteorder")
 public class DeleteOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	OrderDAO dao =  new OrderDAOImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
@@ -23,12 +24,10 @@ public class DeleteOrderServlet extends HttpServlet {
 		
 		HttpSession session=req.getSession();
 		User user = (User) session.getAttribute("user");
-		UserDAO dao =  new UserDAOImpl();
-		
-		Orders order = new Orders();
-		order.setUser(user.getUsername());
-		order.setProduct(req.getParameter("deletedorder"));
-		order.setOrderedtime(Timestamp.valueOf(req.getParameter("deletedtime")));
+		Order order = new Order();
+		order.setUserId(user.getUserId());
+		//order.setProduct(req.getParameter("deletedorder"));
+		order.setOrderTime(Timestamp.valueOf(req.getParameter("deletedtime")));
 
 		dao.deleteOrder(order);
 		
