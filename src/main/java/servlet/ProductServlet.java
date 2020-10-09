@@ -5,7 +5,6 @@ import dao.ProductDAO;
 import dao.impl.ProductDAOImpl;
 import net.sf.json.JSONObject;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,14 +18,14 @@ public class ProductServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
-			throws ServletException, IOException {
+			throws IOException {
 		this.doPost(req,resp);
 	}
 
 	//screen the products and sort the products
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
-			throws ServletException, IOException {
+			throws IOException {
 		String choice = req.getParameter("searchchoice");
 		ProductDAO dao = new ProductDAOImpl();
 		List<Product> products = null;

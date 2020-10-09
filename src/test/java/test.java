@@ -1,9 +1,8 @@
 import dao.*;
 import dao.impl.*;
 import database.DBUtils;
+import net.sf.json.JSONObject;
 import org.springframework.jdbc.core.JdbcTemplate;
-
-import java.sql.Timestamp;
 
 public class test {
 
@@ -17,6 +16,10 @@ public class test {
         ProductDAO prodao = new ProductDAOImpl();
 
         //System.out.println(prodao.sortByAddedtimeAsc());
-        System.out.println( new Timestamp(System.currentTimeMillis()));
+        //System.out.println( new Timestamp(System.currentTimeMillis()));
+        JSONObject json = new JSONObject();  //创建Json对象
+        int commodityID = 2;
+        json.put("products", prodao.sortByAddedtimeAsc());
+        System.out.println(json.toString());
     }
 }
