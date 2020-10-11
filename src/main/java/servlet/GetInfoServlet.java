@@ -33,13 +33,11 @@ public class GetInfoServlet extends HttpServlet {
 
         String flag = req.getParameter("flag");
         switch(flag) {
-            //返回购物车和订单信息
+            //返回购物车信息
             case "1": {
                 CartDAO cartdao = new CartDAOImpl();
-                OrderDAO orderdao = new OrderDAOImpl();
                 int userID = Integer.parseInt(req.getParameter("userID"));
                 json.put("carts", cartdao.sortCartByTime(userID));
-                json.put("orders", orderdao.sortOrderByTime(userID));
                 break;
             }
             //返回单个订单中各个条目信息
@@ -54,6 +52,13 @@ public class GetInfoServlet extends HttpServlet {
                 ProductDAO productdao = new ProductDAOImpl();
                 int commodityID = Integer.parseInt(req.getParameter("commodityID"));
                 json.put("products", productdao.sortByPriceAsc());
+                break;
+            }
+            //返回订单信息
+            case "4": {
+                OrderDAO orderdao = new OrderDAOImpl();
+                int userID = Integer.parseInt(req.getParameter("userID"));
+                json.put("orders", orderdao.sortOrderByTime(userID));
                 break;
             }
         }

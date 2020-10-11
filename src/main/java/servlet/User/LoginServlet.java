@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/login")
+@WebServlet(name="login",urlPatterns="/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	CartDAO cartdao = new CartDAOImpl();
@@ -56,7 +56,9 @@ public class LoginServlet extends HttpServlet {
 			//json返回值
 		}
 		JSONObject json = new JSONObject();  //创建Json对象
+		//0-无账号，1-匹配，2-不匹配
 		json.put("flag", flag);
+		json.put("user", userdao.getUser(user.getName()));
 		res.getWriter().write(json.toString());
 		/*
 		res.getWriter().write(String)和res.getWriter().print(json)有什么区别？

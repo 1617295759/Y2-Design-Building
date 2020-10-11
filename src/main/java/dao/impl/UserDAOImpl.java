@@ -62,12 +62,20 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void addUser(User user) {
+    public int addUser(User user) {
+        User tem = getUser(user.getName());
+        if(tem!=null){
+            return 0;
+        }
         String sql = "INSERT INTO "+ user_schema +
                 " (`name`, `gender`, `telNo`, `password`, `address`, `email`, `deleted`) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        template.update(sql,user.getName(),user.getGender(),user.getTelNo(),
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        int i = template.update(sql,user.getName(),user.getGender(),user.getTelNo(),
                 user.getPassword(),user.getAddress(),user.getEmail(),0);
+        //返回新增数据的ID
+        String sql1 = "select userID from " + user_schema + " where name=?";
+        int userID = template.queryForObject(sql, Integer.class,user.getName());
+        return userID;
     }
 
     @Override

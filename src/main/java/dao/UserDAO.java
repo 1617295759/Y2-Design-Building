@@ -11,5 +11,5 @@ public interface UserDAO {
 	public User getUser(String username);
 	public User getUser(int userID);
 	//注册新用户
-	public void addUser(User user);
+	public int addUser(User user);
 }
