@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/product")
@@ -27,22 +28,27 @@ public class ProductServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws IOException {
 		String choice = req.getParameter("searchchoice");
+		String searchthing = req.getParameter("searchthing");
 		ProductDAO dao = new ProductDAOImpl();
-		List<Product> products = null;
+		List<Product> products = new ArrayList<Product>();
 		switch(choice) {
-			case "searchbykeywords":
-				products = dao.searchKey(req.getParameter("keywords"));
+			case "keywords":
+				//keywords
+				products = dao.searchKey(searchthing);
 				break;
-			case "searchbykinds":
-				products = dao.searchKind(req.getParameter("kind"));
+			case "Category":
+				//kind
+				products = dao.searchKind(searchthing);
 				break;
-			case "sortbytime":	
-				if(req.getParameter("howtosort").equals("ASC"))
+			case "Time":
+				//ASC & DESC
+				if(searchthing.equals("ASC"))
 					products = dao.sortByAddedtimeAsc();
 				else products = dao.sortByAddedtimeDesc();
 				break;
-			case "sortbyprice":
-				if(req.getParameter("howtosortbyprice").equals("ASC"))
+			case "Price":
+				// ASC && DESC
+				if(searchthing.equals("ASC"))
 					products = dao.sortByPriceAsc();
 				else products = dao.sortByPriceDesc();
 				break;

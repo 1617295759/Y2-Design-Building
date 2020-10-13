@@ -10,6 +10,7 @@ public class Cart {
   private Timestamp time;
   private int amount;
   private double price;
+
   //该条购物车信息是否被删除
   private boolean deleted;
 
@@ -48,6 +49,13 @@ public class Cart {
   public void setDeleted(boolean deleted) {
     this.deleted = deleted;
   }
+
+//  private List<Product> products;
+//  public Product getProduct() { return products.get(0); }
+//  public void setProduct(Product product) { this.products.add(product);}
+  private Product product;
+  public Product getProduct() { return this.product; }
+  public void setProduct(Product product) { this.product = product;}
 
   @Override
   public String toString() {

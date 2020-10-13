@@ -34,14 +34,20 @@ public class OrderDAOImpl implements OrderDAO {
                 "values (?,?,?,?,?,?)";
         int i = template.update(sql,new Timestamp(System.currentTimeMillis()),order.getPrice(),
                 sortings.size(),order.getReceiveAddress(),0,order.getUserId());
+
+        //获取到本次订单（该用户最新一次订单）的orderId
+        String sql0 = "SELECT * FROM iotbackstage2.order where userID=? order by orderTime DESC";
+        List<Order> orders = template.query(sql0, new BeanPropertyRowMapper<Order>(Order.class),order.getUserId());
+        int orderID = orders.get(0).getOrderId();
+
         //插入订单每个条目信息
         if(i>0) {
-            String sql1 = "INSERT INTO `iotbackstage2`.`sorting` " +
-                    "(`amount`, `state`, `price`, `deleted`, `orderID`, `commodityID`) " +
-                    "VALUES (?, ?, ?, ?, ?, ?)";
             for (Sorting sort : sortings) {
+                String sql1 = "INSERT INTO `iotbackstage2`.`sorting` " +
+                        "(`amount`, `state`, `price`, `deleted`, `orderID`, `commodityID`) " +
+                        "VALUES (?, ?, ?, ?, ?, ?)";
                 template.update(sql1, sort.getAmount(), sort.getState(), sort.getPrice()
-                        , 0, sort.getOrderId(), sort.getCommodityId());
+                        , 0, orderID, sort.getCommodityId());
             }
         }
         return (i>0);

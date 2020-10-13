@@ -1,6 +1,7 @@
 package dao.impl;
 
 import beans.Sorting;
+import dao.ProductDAO;
 import dao.SortingDAO;
 import database.DBUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -22,6 +23,11 @@ public class SortingDAOImpl implements SortingDAO {
         String sql = "select * from `iotbackstage2`.`sorting` " +
                 "where `deleted`=0 and orderID=?";
         list = template.query(sql,new BeanPropertyRowMapper<Sorting>(Sorting.class),orderID);
+
+        ProductDAO prodao = new ProductDAOImpl();
+        for (Sorting sort:list) {
+            sort.setProduct(prodao.getProduct(sort.getCommodityId()));
+        }
         return (ArrayList<Sorting>) list;
     }
 }

@@ -14,22 +14,11 @@ public class test {
         UserDAO userdao = new UserDAOImpl();
         ProductDAO prodao = new ProductDAOImpl();
 
-        //System.out.println(prodao.sortByAddedtimeAsc());
-        //System.out.println( new Timestamp(System.currentTimeMillis()));
-//        JSONObject json = new JSONObject();  //创建Json对象
-//        int commodityID = 2;
-//        json.put("products", prodao.sortByAddedtimeAsc());
-//        System.out.println(json.toString());
-
         String user_schema = "iotbackstage2.user";
-//        String sql = "INSERT INTO "+ user_schema +
-//                " (`name`, `gender`, `telNo`, `password`, `address`, `email`, `deleted`) " +
-//                "VALUES (?, ?, ?, ?, ?, ?, ?)";
-//        int i = template.update(sql,"jassika","man","123",
-//                "123","beijing","@",0);
+        String cart_schema = "iotbackstage2.cart";
+        String dbname = "iotbackstage2";
 
-        String sql = "select userID from " + user_schema + " where name=?";
-        int count = template.queryForObject(sql, Integer.class,"jck");
-        System.out.println("数据总数：" + count);
+
+
     }
 }

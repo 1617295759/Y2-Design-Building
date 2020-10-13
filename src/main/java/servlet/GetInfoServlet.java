@@ -51,7 +51,7 @@ public class GetInfoServlet extends HttpServlet {
             case "3": {
                 ProductDAO productdao = new ProductDAOImpl();
                 int commodityID = Integer.parseInt(req.getParameter("commodityID"));
-                json.put("products", productdao.sortByPriceAsc());
+                json.put("product", productdao.getProduct(commodityID));
                 break;
             }
             //返回订单信息

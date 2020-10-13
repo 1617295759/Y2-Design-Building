@@ -1,9 +1,9 @@
 package servlet.Order;
 
-import beans.Cart;
 import beans.Order;
 import beans.Sorting;
 import beans.User;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import dao.CartDAO;
 import dao.OrderDAO;
@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/cartToorder")
@@ -35,26 +36,41 @@ public class OrderCartServlet extends HttpServlet {
 
         HttpSession session=req.getSession();
         User user = (User) session.getAttribute("user");
-        CartDAO cartdao =  new CartDAOImpl();
-        OrderDAO orderdao =  new OrderDAOImpl();
-
-        String recAdd = req.getParameter("recAdd");
-        //从前端合并成集合，通过json传输，后端还原为集合
-        String CartList = req.getParameter("cartlist");
-        List<Cart> cartList = JSONObject.parseArray(CartList, Cart.class);
-        List<Sorting> sortings = null;
-        double sumprice = 0;
-        //从购物车中移除
-        for(Cart cart: cartList){
-            cartdao.deleteCart(cart.getCartId());
-            sortings.add(new Sorting(cart));
-            sumprice += cart.getPrice();
-        }
-        Order order = new Order(sumprice,recAdd,user.getUserId());
-        boolean flag = orderdao.addOrder(order,sortings);
-
         JSONObject json = new JSONObject();  //创建Json对象
-        json.put("flag", flag);
+        if(user!=null){
+            CartDAO cartdao =  new CartDAOImpl();
+            OrderDAO orderdao =  new OrderDAOImpl();
+
+            int userID = user.getUserId();
+            double sumprice = 0;
+            sumprice = Integer.parseInt(req.getParameter("sumprice"));
+            //收获地址
+            String recAdd = req.getParameter("recadd");
+            //从前端合并成集合，通过json传输，后端进行拆解分析
+            String CartList = req.getParameter("cartlist");
+            JSONArray cartList = JSONObject.parseArray(CartList);
+            List<Sorting> sortings = new ArrayList<Sorting>();
+
+            for(int i=0;i<cartList.size();i++){
+                JSONObject jo = cartList.getJSONObject(i);
+                //Product pro = JSONObject.parseObject(jo.toString(), Product.class);
+
+                cartdao.deleteCart((int)(jo.get("cartId")));
+                sortings.add(new Sorting(
+                        (int)(jo.get("amount")),
+                        Double.valueOf((int)(jo.get("price"))),
+                        (int)(jo.get("commodityId"))
+                ));
+            }
+            //添加订单数据
+            Order order = new Order(sumprice,recAdd,userID);
+            boolean flag = orderdao.addOrder(order,sortings);
+            json.put("flag", flag);
+        }else{
+            json.put("flag", 404);
+        }
         resp.getWriter().write(json.toString());
+
+
     }
 }

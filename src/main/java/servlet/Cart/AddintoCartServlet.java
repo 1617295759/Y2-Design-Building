@@ -30,6 +30,7 @@ throws ServletException, IOException {
 		HttpSession session=req.getSession();
 		User user = (User) session.getAttribute("user");
 
+		int userID = Integer.parseInt(req.getParameter("userID"));
 		int commodityID = Integer.parseInt(req.getParameter("commodityID"));
 		int amount = Integer.parseInt(req.getParameter("amount"));
 		boolean flag = dao.addCart(user.getUserId(),commodityID,amount);

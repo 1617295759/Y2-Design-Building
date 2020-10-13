@@ -2,6 +2,7 @@ package dao.impl;
 
 import beans.Cart;
 import dao.CartDAO;
+import dao.ProductDAO;
 import database.DBUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -44,6 +45,11 @@ public class CartDAOImpl implements CartDAO {
         List<Cart> list = new ArrayList<Cart>();
         String sql = "select * from "+ cart_schema + " where `deleted`=0 and userID=?  order by time";
         list = template.query(sql,new BeanPropertyRowMapper<Cart>(Cart.class),userID);
+
+        ProductDAO prodao = new ProductDAOImpl();
+        for (Cart cart:list) {
+            cart.setProduct(prodao.getProduct(cart.getCommodityId()));
+        }
         return (ArrayList<Cart>) list;
     }
 }

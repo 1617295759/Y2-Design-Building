@@ -37,9 +37,21 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<Product> searchKind(String kind) {
 		List<Product> list = new ArrayList<Product>();
 		String sql = "select * from "+ dbname+ ".commodity " +
-				"where deleted = 0 where superCategory=?";
+				"where deleted = 0 and superCategory=?";
         list = template.query(sql,new BeanPropertyRowMapper<Product>(Product.class),kind);
 		return list;
+	}
+
+	@Override
+	public Product getProduct(int commodityID) {
+		String sql = "select * from "+ dbname+ ".commodity " +
+				"where deleted = 0 and commodityID=?";
+		Product product = null;
+		try{
+			product = template.queryForObject(sql, new BeanPropertyRowMapper<Product>(Product.class), commodityID);
+		}catch(Exception e){
+		}
+		return product;
 	}
 
 	public List<Product> sortByAddedtimeAsc() {

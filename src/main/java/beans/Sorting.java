@@ -10,13 +10,19 @@ public class Sorting {
   private int orderId;
   private int commodityId;
   public Sorting(){}
-  public Sorting(Cart cart){
-    this.amount = cart.getAmount();
+  public Sorting(int amount, double price, int commodityId){
+    this.amount = amount;
     this.state = "0";
-    this.price = cart.getPrice();
+    this.price = price;
     this.deleted = false;
-    this.commodityId = cart.getCommodityId();
+    this.commodityId = commodityId;
   }
+
+  private Product product;
+
+  public Product getProduct() { return product; }
+
+  public void setProduct(Product product) { this.product = product;}
 
   public int getSortId() {
     return sortId;

@@ -12,13 +12,11 @@ html, body {
     padding: 0;
     margin: 0;
 }
-html {
-     -webkit-text-size-adjust: none;
-}
+
 
 .video embed, .video object, .video iframe {
-     width: 100%;
-      height: auto;
+    width: 100%;
+    height: auto;
 }
 
 img {
@@ -438,10 +436,11 @@ header .form-search button:hover {
 
 .pricedetails {
     margin-top: 20px;
+
 }
 
 .pricedetails table td {
-    padding-right: 70px;
+    padding-right: 40px;
 }
 
 .modal-body {

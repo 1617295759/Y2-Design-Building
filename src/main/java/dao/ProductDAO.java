@@ -10,6 +10,8 @@ public interface ProductDAO {
 	//
 	public List<Product> searchKind(String kind);
 	//
+	public Product getProduct(int commodityID);
+	//
 	public List<Product> sortByAddedtimeAsc();
 	//
 	public List<Product> sortByAddedtimeDesc();

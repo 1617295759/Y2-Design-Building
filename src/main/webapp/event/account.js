@@ -1,3 +1,7 @@
+$(document).ready(function(){
+    $("top").load("./module/top.html");
+    $("foot").load("./module/foot.html");
+});
 $("#login").click(function () {
     var username = $("#lname").val();
     var password = $("#lpassword").val();
@@ -29,7 +33,7 @@ $("#login").click(function () {
                         title: 'login successfully',
                         content: 'back to HOME',
                         buttons: {
-                            confirm: function () {
+                            Yes: function () {
                                 $(window).attr('location', 'index.html');
                             }
                         }
@@ -104,7 +108,7 @@ $("#register").click(function () {
                         title: 'register successfully',
                         content: 'back to HOME',
                         buttons: {
-                            confirm: function () {
+                            Yes: function () {
                                 $(window).attr('location', 'index.html');
                             }
                         }
