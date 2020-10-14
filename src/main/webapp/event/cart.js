@@ -1,9 +1,15 @@
 var cartvue = new Vue({
     el: '#page-content',
     data: {
+        user:{},
+        type:'cart',
+        //购物车
         carts: [],
         sum: 0,
-        recadd : ""
+        recadd : "",
+        freight: 20,
+        //订单
+        orders:[]
     },
     created: function () {
         var that = this;
@@ -26,13 +32,16 @@ var cartvue = new Vue({
         }
         console.log("The current user information: ");
         console.log(user);
+        this.user = user;
 
         that.$nextTick(() => {
+            that.getorders();
             that.getcarts();
             that.recadd = user.address;
         });
     },
     methods: {
+        //购物车页面
         select: function (index) {
             this.carts[index].selected = !this.carts[index].selected;
             this.getsum();
@@ -152,7 +161,7 @@ var cartvue = new Vue({
             }
 
             let data = new URLSearchParams();
-            data.append('sumprice', that.sum);
+            data.append('sumprice', that.sum + that.freight);
             data.append('recadd', that.recadd);
             data.append('cartlist', JSON.stringify(selectedcarts));
             axios({
@@ -173,26 +182,23 @@ var cartvue = new Vue({
                             title: '',
                             content: 'Your identity is out of date',
                             buttons: {
-                                "login": function () {
+                                login: function () {
                                     $(window).attr('location', 'account.html');
                                 },
-                                "continue shopping": function () {
+                                shopping: function () {
                                     $(window).attr('location', 'index.html');
                                 }
                             }
                         });
                     }else if (response.data.flag){
-                        $.confirm({
+                        $.alert({
                             theme: 'modern',
                             backgroundDismiss: true,
                             title: '',
                             content: 'Checkout Successfully',
                             buttons: {
-                                "continue checkout": function () {
-                                    that.getcarts();
-                                },
-                                "shopping": function () {
-                                    $(window).attr('index', 'index.html');
+                                "Go on Shopping": function () {
+                                    $(window).attr('location', 'index.html');
                                 }
                             }
                         });
@@ -201,6 +207,64 @@ var cartvue = new Vue({
                 .catch(function (error) {
                     console.log(error);
                 });
+        },
+
+
+        //订单页面
+        getorders: function (){
+            var that = this;
+            let data = new URLSearchParams();
+            data.append('flag', 4);
+            data.append('userID', that.user.userId);
+
+            axios({
+                url: './getInfo',
+                method: 'post',
+                async: false,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: data
+            })
+                .then(function (response) {
+                    that.orders = response.data.orders;
+                    console.log("getInfo 服务器响应数据 orders：")
+                    console.log(that.orders);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            for (var i = 0; i < that.orders.length; i++) {
+                var sorts = that.getsorts(that.orders[i].orderId);
+                cartvue.$set(that.orders[i], 'sorts', sorts);
+            }
+            console.log("data 中的数据 orders：");
+            console.log(that.orders);
+        },
+        getsorts: function(orderid){
+            var that = this;
+            var sort = [];
+            let data = new URLSearchParams();
+            data.append('flag', 2);
+            data.append('orderID', orderid);
+            axios({
+                url: './getInfo',
+                method: 'post',
+                async: false,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: data
+            })
+                .then(function (response) {
+                    console.log("getInfo 服务器响应数据 sorts：");
+                    console.log(response.data.sorts);
+                    sort = response.data.sorts;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            return sort;
         }
     }
 })
