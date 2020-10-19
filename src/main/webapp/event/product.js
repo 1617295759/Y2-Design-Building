@@ -2,7 +2,8 @@ var catevue = new Vue({
     el: '#page-content',
     data: {
         product: {},
-        amount: 1
+        amount: 1,
+        customization: ""
     },
     created: function () {
         var that = this;
@@ -76,6 +77,7 @@ var catevue = new Vue({
             data.append('userID', user.userId);
             data.append('amount', this.amount);
             data.append('commodityID', this.product.commodityId);
+            data.append('customization', $("#cus").find("option:selected").val());
             axios({
                 url: './addintocart',
                 method: 'post',

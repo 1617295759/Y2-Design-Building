@@ -33,7 +33,8 @@ throws ServletException, IOException {
 		int userID = Integer.parseInt(req.getParameter("userID"));
 		int commodityID = Integer.parseInt(req.getParameter("commodityID"));
 		int amount = Integer.parseInt(req.getParameter("amount"));
-		boolean flag = dao.addCart(user.getUserId(),commodityID,amount);
+		String cus = req.getParameter("customization");
+		boolean flag = dao.addCart(userID,commodityID,amount,cus);
 
 		JSONObject json = new JSONObject();  //创建Json对象
 		json.put("flag", flag);

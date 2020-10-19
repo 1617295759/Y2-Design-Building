@@ -7,7 +7,7 @@
             </div>
             <div class="col-xs-6">
                 <ul class="top-link">
-                    <li><a href="account.html"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+                    <li><a href="account.html"><span id="myaccount" class="glyphicon glyphicon-user"></span></a></li>
                     <li><a href="contact.html"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
                 </ul>
             </div>
@@ -15,12 +15,12 @@
     </div>
 </nav>
 <!--Header-->
-<header class="container">
+<header class="container" style="padding:0">
     <div class="row">
         <div class="col-md-4" id="logo" style="float:left">
-            <div><img src="../images/logo.png"/></div>
+            <div><img src="../images/organlogo.png" alt="Organ" style="transform:scale(0.8)"/></div>
         </div>
-        <div class="col-md-4" style="float:right">
+        <div class="col-md-4" style="float:right;padding-top: 50px">
             <div id="cart"><a class="btn btn-1" href="cart.html"><span class="glyphicon glyphicon-shopping-cart"></span>MINE
                 </a></div>
         </div>
@@ -42,8 +42,11 @@
                     <div class="dropdown-menu">
                         <div class="dropdown-inner">
                             <ul class="list-unstyled">
-                                <li><a href="category.html">Window</a></li>
-                                <li><a href="category.html">MacBook</a></li>
+                                <li><a href="category.html?choice=Functionality&key=Chord recogonition">Chord recogonition</a></li>
+                                <li><a href="category.html?choice=Functionality&key=Basic function">Basic function</a></li>
+                                <li><a href="category.html?choice=Functionality&key=Standard intonation">Standard intonation</a></li>
+                                <li><a href="category.html?choice=Functionality&key=Advanced Material">Advanced Material</a></li>
+                                <li><a href="category.html?choice=Functionality&key=null">Other</a></li>
                             </ul>
                         </div>
                     </div>
@@ -52,11 +55,9 @@
                     <div class="dropdown-menu">
                         <div class="dropdown-inner">
                             <ul class="list-unstyled">
-                                <li><a href="category.html">Dell</a></li>
-                                <li><a href="category.html">Asus</a></li>
-                                <li><a href="category.html">Samsung</a></li>
-                                <li><a href="category.html">Lenovo</a></li>
-                                <li><a href="category.html">Acer</a></li>
+                                <li><a href="category.html?choice=Category&key=Electronic organ">Electronic organ</a></li>
+                                <li><a href="category.html?choice=Category&key=Saxophone">Saxophone</a></li>
+                                <li><a href="category.html?choice=Category&key=Guitar">Guitar</a></li>
                             </ul>
                         </div>
                     </div>
@@ -65,14 +66,14 @@
                     <div class="dropdown-menu" style="margin-left: -203.625px;">
                         <div class="dropdown-inner">
                             <ul class="list-unstyled">
-                                <li><a href="category.html">50~100</a></li>
-                                <li><a href="category.html">100~150</a></li>
-                                <li><a href="category.html">150~200</a></li>
+                                <li><a href="category.html?choice=PriceDomain&key=1"><100</a></li>
+                                <li><a href="category.html?choice=PriceDomain&key=2">100~150</a></li>
+                                <li><a href="category.html?choice=PriceDomain&key=3">150~200</a></li>
                             </ul>
                             <ul class="list-unstyled">
-                                <li><a href="category.html">200~250</a></li>
-                                <li><a href="category.html">250~300</a></li>
-                                <li><a href="category.html">300+</a></li>
+                                <li><a href="category.html?choice=PriceDomain&key=4">200~250</a></li>
+                                <li><a href="category.html?choice=PriceDomain&key=5">250~300</a></li>
+                                <li><a href="category.html?choice=PriceDomain&key=6">300+</a></li>
                             </ul>
                         </div>
                     </div>
@@ -81,3 +82,11 @@
         </div>
     </div>
 </nav>
+<script>
+    let user = JSON.parse(sessionStorage.getItem("user"));
+    if (user==null){
+        $("#myaccount").html("LogIn");
+    }else{
+        $("#myaccount").html(user.name);
+    }
+</script>

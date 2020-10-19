@@ -1,6 +1,5 @@
 package servlet.User;
 
-import beans.User;
 import dao.UserDAO;
 import dao.impl.UserDAOImpl;
 import net.sf.json.JSONObject;
@@ -28,18 +27,31 @@ public class ModifyServlet extends HttpServlet {
 		res.setContentType("text/json;charset=utf-8");
 
 		HttpSession session = req.getSession();
-		User olduser = (User) session.getAttribute("user");
-		User user = new User();
-		user.setName(olduser.getName());
-		user.setPassword(req.getParameter("password"));
-		user.setGender(req.getParameter("sex"));
-		user.setEmail(req.getParameter("email"));
-		user.setTelNo(req.getParameter("phone"));
-		user.setAddress(req.getParameter("address"));
-		//调用dao更新数据
-		boolean flag = dao.updateInfo(olduser.getName(),user);
+		int userid = Integer.parseInt(req.getParameter("userid"));
+
+//		User user = new User();
+//		user.setName(req.getParameter("name"));
+//		user.setPassword(req.getParameter("password"));
+//		user.setGender(req.getParameter("sex"));
+//		user.setEmail(req.getParameter("email"));
+//		user.setTelNo(req.getParameter("phone"));
+//		user.setAddress(req.getParameter("address"));
+
+		boolean flag = false;//调用dao更新数据
+		if(req.getParameter("name")!=null){
+			flag = dao.updateInfo(userid,"name",req.getParameter("name"));
+		}else if(req.getParameter("gender")!=null){
+			flag = dao.updateInfo(userid,"gender",req.getParameter("gender"));
+		}else if(req.getParameter("telNo")!=null){
+			flag = dao.updateInfo(userid,"telNo",req.getParameter("telNo"));
+		}else if(req.getParameter("address")!=null){
+			flag = dao.updateInfo(userid,"address",req.getParameter("address"));
+		}else if(req.getParameter("email")!=null){
+			flag = dao.updateInfo(userid,"email",req.getParameter("email"));
+		}
+
 		//在session中更新用户信息
-		session.setAttribute("user", dao.getUser(olduser.getName()));
+		session.setAttribute("user", dao.getUser(userid));
 
 		JSONObject json = new JSONObject();  //创建Json对象
 		json.put("flag", flag);

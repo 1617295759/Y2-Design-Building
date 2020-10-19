@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public interface CartDAO {
     //
-    public boolean addCart(int userID, int commodityID, int amount);
+    public boolean addCart(int userID, int commodityID, int amount,String cus);
     //
     public boolean deleteCart(int cartID);
     //

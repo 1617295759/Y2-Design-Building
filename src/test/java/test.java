@@ -19,6 +19,6 @@ public class test {
         String dbname = "iotbackstage2";
 
 
-
+        System.out.println(prodao.searchPriceDomain(1));
     }
 }

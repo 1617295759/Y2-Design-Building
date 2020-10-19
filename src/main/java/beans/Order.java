@@ -2,6 +2,7 @@ package beans;
 
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Order {
 
@@ -12,6 +13,11 @@ public class Order {
   private String receiveAddress;
   private boolean deleted;
   private int userId;
+  private List<Sorting> sorts;
+
+  public List<Sorting> getSorts() { return sorts; }
+
+  public void setSorts(List<Sorting> sorts) { this.sorts = sorts; }
 
   public Order(){
     orderTime =  new Timestamp(System.currentTimeMillis());

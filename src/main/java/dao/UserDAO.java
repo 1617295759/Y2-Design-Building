@@ -6,8 +6,8 @@ public interface UserDAO {
 	//
 	public int queryByUsername(User user);
 	
-	public boolean updateInfo(String username,User user);
-
+	public boolean updateInfo(int userid,User user);
+	public boolean updateInfo(int userid,String newinfo,String info);
 	public User getUser(String username);
 	public User getUser(int userID);
 	//注册新用户

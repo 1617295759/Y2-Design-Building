@@ -161,6 +161,7 @@ var cartvue = new Vue({
             }
 
             let data = new URLSearchParams();
+            data.append('userid', that.user.userId);
             data.append('sumprice', that.sum + that.freight);
             data.append('recadd', that.recadd);
             data.append('cartlist', JSON.stringify(selectedcarts));
@@ -234,37 +235,216 @@ var cartvue = new Vue({
                 .catch(function (error) {
                     console.log(error);
                 });
-            for (var i = 0; i < that.orders.length; i++) {
-                var sorts = that.getsorts(that.orders[i].orderId);
-                cartvue.$set(that.orders[i], 'sorts', sorts);
-            }
-            console.log("data 中的数据 orders：");
-            console.log(that.orders);
         },
-        getsorts: function(orderid){
-            var that = this;
-            var sort = [];
-            let data = new URLSearchParams();
-            data.append('flag', 2);
-            data.append('orderID', orderid);
-            axios({
-                url: './getInfo',
-                method: 'post',
-                async: false,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                data: data
-            })
-                .then(function (response) {
-                    console.log("getInfo 服务器响应数据 sorts：");
-                    console.log(response.data.sorts);
-                    sort = response.data.sorts;
+
+
+        //修改信息
+        modifyusername() {
+            let that = this;
+            this.$prompt('Your username is '+that.user.name+', Would you modify ?', 'Modify Info', {
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'Cancel'
+            }).then(({ value }) => {
+                let data = new URLSearchParams();
+                data.append('userid', that.user.userId);
+                data.append('name', value);
+                axios({
+                    url: './modifyuserinfo',
+                    method: 'post',
+                    async: false,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    data: data
                 })
-                .catch(function (error) {
-                    console.log(error);
+                    .then(function (response) {
+                        console.log("Modify 服务器响应数据 flag：")
+                        console.log(response.data.flag);
+                        that.$message({
+                            type: 'success',
+                            message: 'Modify successfully ! '
+                        });
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }).catch(() => {
+                that.$message({
+                    type: 'info',
+                    message: 'Modify Canceled'
                 });
-            return sort;
+            });
+        },
+        modifygender() {
+            let that = this;
+            this.$confirm('Your gender is '+that.user.gender+', Would you modify ?', 'Modify Info', {
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'Cancel'
+            }).then(({ value }) => {
+                let gender = (that.user.gender=='male')?('female'):('male');
+                let data = new URLSearchParams();
+                data.append('userid', that.user.userId);
+                data.append('gender', gender);
+                axios({
+                    url: './modifyuserinfo',
+                    method: 'post',
+                    async: false,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    data: data
+                })
+                    .then(function (response) {
+                        console.log("Modify 服务器响应数据 flag：")
+                        console.log(response.data.flag);
+                        that.$message({
+                            type: 'success',
+                            message: 'Modify successfully ! '
+                        });
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }).catch(() => {
+                that.$message({
+                    type: 'info',
+                    message: 'Modify Canceled'
+                });
+            });
+        },
+        modifyteleNo() {
+            let that = this;
+            this.$prompt('Your teleNo is '+that.user.teleNo+', Would you modify ?', 'Modify Info', {
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'Cancel',
+                inputPattern: /^1[3456789]\d{9}$/,
+                inputErrorMessage: 'wrong teleNo pattern'
+            }).then(({ value }) => {
+                let data = new URLSearchParams();
+                data.append('userid', that.user.userId);
+                data.append('teleNo', value);
+                axios({
+                    url: './modifyuserinfo',
+                    method: 'post',
+                    async: false,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    data: data
+                })
+                    .then(function (response) {
+                        console.log("Modify 服务器响应数据 flag：")
+                        console.log(response.data.flag);
+                        that.$message({
+                            type: 'success',
+                            message: 'Modify successfully ! '
+                        });
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }).catch(() => {
+                that.$message({
+                    type: 'info',
+                    message: 'Modify Canceled'
+                });
+            });
+        },
+        modifyaddress() {
+            let that = this;
+            this.$prompt('Your address is "'+that.user.address+'" , Would you modify ?', 'Modify Info', {
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'Cancel'
+            }).then(({ value }) => {
+                let data = new URLSearchParams();
+                data.append('userid', that.user.userId);
+                data.append('address', value);
+                axios({
+                    url: './modifyuserinfo',
+                    method: 'post',
+                    async: false,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    data: data
+                })
+                    .then(function (response) {
+                        console.log("Modify 服务器响应数据 flag：")
+                        console.log(response.data.flag);
+                        that.$message({
+                            type: 'success',
+                            message: 'Modify successfully ! '
+                        });
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }).catch(() => {
+                that.$message({
+                    type: 'info',
+                    message: 'Modify Canceled'
+                });
+            });
+        },
+        modifyemail() {
+            let that = this;
+            this.$prompt('Your email is '+that.user.email+', Would you modify ?', 'Modify Info', {
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'Cancel',
+                inputPattern: /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/,
+                inputErrorMessage: 'wrong e-mail pattern'
+            }).then(({ value }) => {
+                let data = new URLSearchParams();
+                data.append('userid', that.user.userId);
+                data.append('email', value);
+                axios({
+                    url: './modifyuserinfo',
+                    method: 'post',
+                    async: false,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    data: data
+                })
+                    .then(function (response) {
+                        console.log("Modify 服务器响应数据 flag：")
+                        console.log(response.data.flag);
+                        that.$message({
+                            type: 'success',
+                            message: 'Modify successfully ! '
+                        });
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }).catch(() => {
+                that.$message({
+                    type: 'info',
+                    message: 'Modify Canceled'
+                });
+            });
+        },
+        dateFormat(time) {
+            let minutes = time.minutes;
+            if(minutes<10){
+                minutes = "0"+minutes;
+            }
+            return time.month+1+"-"+time.date+", "+time.hours+":"+minutes;
+        },
+        exit(){
+            $.confirm({
+                title: '',
+                content: 'Sure to log out ?',
+                theme: 'supervan',
+                buttons: {
+                    Yes: function () {
+                        sessionStorage.clear();
+                        $(window).attr('location', 'index.html');
+                    },
+                    cancel: function () {
+                    }
+                }
+            });
         }
     }
 })

@@ -44,10 +44,10 @@ public class OrderDAOImpl implements OrderDAO {
         if(i>0) {
             for (Sorting sort : sortings) {
                 String sql1 = "INSERT INTO `iotbackstage2`.`sorting` " +
-                        "(`amount`, `state`, `price`, `deleted`, `orderID`, `commodityID`) " +
-                        "VALUES (?, ?, ?, ?, ?, ?)";
+                        "(`amount`, `state`, `price`, `deleted`, `orderID`, `commodityID`, `color`) " +
+                        "VALUES (?, ?, ?, ?, ?, ?,?)";
                 template.update(sql1, sort.getAmount(), sort.getState(), sort.getPrice()
-                        , 0, orderID, sort.getCommodityId());
+                        , 0, orderID, sort.getCommodityId(),sort.getColor());
             }
         }
         return (i>0);

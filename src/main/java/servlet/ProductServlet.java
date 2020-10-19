@@ -27,36 +27,44 @@ public class ProductServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws IOException {
-		String choice = req.getParameter("searchchoice");
-		String searchthing = req.getParameter("searchthing");
+		String choice = req.getParameter("choice");
+		String key = req.getParameter("key");
 		ProductDAO dao = new ProductDAOImpl();
 		List<Product> products = new ArrayList<Product>();
 		switch(choice) {
 			case "keywords":
 				//keywords
-				products = dao.searchKey(searchthing);
+				products = dao.searchKey(key);
 				break;
 			case "Category":
 				//kind
-				products = dao.searchKind(searchthing);
+				products = dao.searchKind(key);
 				break;
 			case "Time":
 				//ASC & DESC
-				if(searchthing.equals("ASC"))
+				if(key.equals("ASC"))
 					products = dao.sortByAddedtimeAsc();
 				else products = dao.sortByAddedtimeDesc();
 				break;
 			case "Price":
 				// ASC && DESC
-				if(searchthing.equals("ASC"))
+				if(key.equals("ASC"))
 					products = dao.sortByPriceAsc();
 				else products = dao.sortByPriceDesc();
+				break;
+			case "Functionality":
+				products = dao.searchFunc(key);
+				break;
+			case "PriceDomain":
+				products = dao.searchPriceDomain(Integer.parseInt(key));
 				break;
 		}
 
 		req.getSession().setAttribute("products",products);
 		JSONObject json = new JSONObject();  //创建Json对象
 		json.put("products", products);
+
+		req.setCharacterEncoding("GBK"); resp.setContentType("text/plain;charset=GBK");
 		resp.getWriter().write(json.toString());
 	}
 

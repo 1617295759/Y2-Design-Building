@@ -79,15 +79,19 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-	public boolean updateInfo(String username, User user) {
-		String sql = "UPDATE "+ user_schema +" SET `gender` = ?, " +
-                "`telNo` = ?, `password` = ?, `address` = ?, `email` = ?, `deleted` = ? " +
-                "WHERE (`name` = ?)";
+	public boolean updateInfo(int userid, User user) {
+		String sql = "UPDATE "+ user_schema +" SET `name` = ?, `gender` = ?, " +
+                "`telNo` = ?, `password` = ?, `address` = ?, `email` = ? WHERE (`userID` = ?)";
 
-		User dbuser = new UserDAOImpl().getUser(username);
+		User dbuser = new UserDAOImpl().getUser(userid);
 
-        String gender,telNo,password,address,email;
+        String name,gender,telNo,password,address,email;
         boolean deleted;
+        if((user.getName()!=null)&&(!user.getName().equals(""))){
+            name = user.getName();
+        }else{
+            name = dbuser.getName();
+        }
         if((user.getGender()!=null)&&(!user.getGender().equals(""))){
             gender = user.getGender();
         }else{
@@ -113,7 +117,30 @@ public class UserDAOImpl implements UserDAO {
         }else{
             email = dbuser.getEmail();
         }
-        int i = template.update(sql,gender,telNo,password,address,email,user.getDeleted(),username);
+        int i = template.update(sql,name,gender,telNo,password,address,email,userid);
         return (i>0);
 	}
+    public boolean updateInfo(int userid,String newinfo,String info){
+        int i = 0;
+        String sql = "";
+        switch(newinfo){
+            case "name":
+                sql = "UPDATE "+ user_schema +" SET `name` = ? WHERE (`userID` = ?)";
+                break;
+            case "gender":
+                sql = "UPDATE "+ user_schema +" SET `gender` = ? WHERE (`userID` = ?)";
+                break;
+            case "telNo":
+                sql = "UPDATE "+ user_schema +" SET `telNo` = ? WHERE (`userID` = ?)";
+                break;
+            case "address":
+                sql = "UPDATE "+ user_schema +" SET `address` = ? WHERE (`userID` = ?)";
+                break;
+            case "email":
+                sql = "UPDATE "+ user_schema +" SET `email` = ? WHERE (`userID` = ?)";
+                break;
+        }
+        i = template.update(sql,info,userid);
+        return (i>0);
+    }
 }

@@ -19,16 +19,16 @@ public class CartDAOImpl implements CartDAO {
     }
 
     @Override
-    public boolean addCart(int userID, int commodityID, int amount) {
+    public boolean addCart(int userID, int commodityID, int amount, String cus) {
         String sql0 = "SELECT price FROM iotbackstage2.commodity " +
                 "WHERE commodityID = ?";
         double price = template.queryForObject(sql0,Double.class,commodityID);
 
         String sql = "insert into iotbackstage2.cart " +
-                "(userID, commodityID, time, amount,price,deleted) " +
-                "values (?,?,?,?,?,?)";
+                "(userID, commodityID, time, amount,price,deleted,color) " +
+                "values (?,?,?,?,?,?,?)";
         int  i = template.update(sql,userID, commodityID,
-                new Timestamp(System.currentTimeMillis()),amount,price,0);
+                new Timestamp(System.currentTimeMillis()),amount,price,0,cus);
         return (i>0);
     }
 

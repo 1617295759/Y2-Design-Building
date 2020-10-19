@@ -1,5 +1,6 @@
 package servlet;
 
+import beans.Order;
 import dao.CartDAO;
 import dao.OrderDAO;
 import dao.ProductDAO;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/getInfo")
 public class GetInfoServlet extends HttpServlet {
@@ -57,8 +59,13 @@ public class GetInfoServlet extends HttpServlet {
             //返回订单信息
             case "4": {
                 OrderDAO orderdao = new OrderDAOImpl();
+                SortingDAO sortdao = new SortingDAOImpl();
                 int userID = Integer.parseInt(req.getParameter("userID"));
-                json.put("orders", orderdao.sortOrderByTime(userID));
+                List<Order> orders = orderdao.sortOrderByTime(userID);
+                for (Order order:orders) {
+                    order.setSorts(sortdao.getSorting(order.getOrderId()));
+                }
+                json.put("orders", orders);
                 break;
             }
         }

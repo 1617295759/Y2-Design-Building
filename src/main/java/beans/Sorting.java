@@ -9,13 +9,16 @@ public class Sorting {
   private boolean deleted;
   private int orderId;
   private int commodityId;
+  private String color;
+
   public Sorting(){}
-  public Sorting(int amount, double price, int commodityId){
+  public Sorting(int amount, double price, int commodityId,String color){
     this.amount = amount;
     this.state = "0";
     this.price = price;
     this.deleted = false;
     this.commodityId = commodityId;
+    this.color = color;
   }
 
   private Product product;
@@ -85,6 +88,10 @@ public class Sorting {
   public void setCommodityId(int commodityId) {
     this.commodityId = commodityId;
   }
+
+  public String getColor() { return color; }
+
+  public void setColor(String color) { this.color = color; }
 
   @Override
   public String toString() {

@@ -10,6 +10,7 @@ public class Cart {
   private Timestamp time;
   private int amount;
   private double price;
+  private String color;
 
   //该条购物车信息是否被删除
   private boolean deleted;
@@ -49,6 +50,10 @@ public class Cart {
   public void setDeleted(boolean deleted) {
     this.deleted = deleted;
   }
+
+  public String getColor() { return color; }
+
+  public void setColor(String color) { this.color = color; }
 
 //  private List<Product> products;
 //  public Product getProduct() { return products.get(0); }

@@ -1,7 +1,6 @@
 var countvue = new Vue({
     el: '#page-content',
     data: {
-
     },
     created: function () {
         let user = JSON.parse(sessionStorage.getItem("user"));

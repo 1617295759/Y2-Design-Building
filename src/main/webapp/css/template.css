@@ -11,6 +11,7 @@ html, body {
     width: 100%;
     padding: 0;
     margin: 0;
+    overflow-x: hidden;
 }
 
 
@@ -284,7 +285,7 @@ header .form-search button:hover {
 }
 
 #page-content .row {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
 .carousel-inner {
@@ -354,7 +355,12 @@ header .form-search button:hover {
 }
 
 .products .product {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    border: 2px outset 	#F0E68C;
+    border-top: 6px solid 	#FFD700;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 .product .image-more {
@@ -376,7 +382,7 @@ header .form-search button:hover {
 }
 
 .product .name {
-    border-bottom: 1px solid #eee;
+    border-bottom: 2px solid #DCDCDC;
 }
 
 .product .name h3 {
@@ -539,6 +545,10 @@ header .form-search button:hover {
 footer {
     background: #2A2A2A;
 }
+footer row{
+    margin: 0;
+    width: 100%;
+}
 
 footer .wrap-footer {
     padding: 50px 0;
@@ -590,7 +600,7 @@ footer .footer-4 ul li {
 }
 
 footer .footer-4 span {
-    margin-right: 10px;
+    margin-right: 0;
 }
 
 footer .copyright {
@@ -608,7 +618,7 @@ footer .copyright a:hover {
 
 footer .copyright ul li {
     display: inline-block;
-    margin-left: 10px;
+    margin-left: 0;
 }
 
 .form-group {
@@ -675,4 +685,9 @@ footer .copyright ul li {
     margin-left: 5px;
     background: #D9534F;
     color: #fff;
+}
+
+.orderimage{
+    padding-right: 10px;
+    border-right: 3px solid #ed9c28;
 }
