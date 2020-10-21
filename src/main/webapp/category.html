@@ -38,17 +38,17 @@
 <top></top>
 <div id="page-content" class="single-page">
 
-    <div class="container" >
+    <div class="container">
         <div class="row">
             <div class="col-xs-12">
                 <ul class="breadcrumb">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="category.html">Sort by {{sortchoice}} : {{sorthow}}</a></li>
-                    <li  style="float: right">
+                    <li style="margin-left: 50px;">
                         <el-input
-                                placeholder="keyword"
-                                suffix-icon="el-icon-search"
-                                v-model="keyword">
+                                  placeholder="keyword"
+                                  suffix-icon="el-icon-search"
+                                  v-model="keyword">
                         </el-input>
                     </li>
                 </ul>
@@ -56,11 +56,11 @@
         </div>
         <div class="row">
             <div id="main-content" class="col-xs-12" v-if="products.length!=0">
-                <div class="products" >
+                <div class="products">
                     <div class="col-lg-4 col-md-4 col-xs-12" v-for="(product,index) in products" :key="index">
                         <div class="product">
-                            <div class="image"><a :href="'product.html?commodityid='+product.commodityId"><img
-                                    :src="product.imgsrc"/></a></div>
+                            <div class="image"><a :href="'product.html?commodityid='+product.commodityId">
+                                <img :src="product.imgsrc"/></a></div>
                             <div class="buttons">
                                 <a class="btn cart" :href="'product.html?commodityid='+product.commodityId"><span
                                         class="glyphicon glyphicon-shopping-cart"></span></a>
@@ -73,27 +73,14 @@
                                 <div class="name"><h3><a href="product.html">{{product.name}}</a></h3>
                                 </div>
                                 <div class="price">${{product.price}}</div>
-                                <div class="rating"><span class="glyphicon glyphicon-star"></span><span
-                                        class="glyphicon glyphicon-star"></span><span
-                                        class="glyphicon glyphicon-star"></span><span
-                                        class="glyphicon glyphicon-star"></span><span
-                                        class="glyphicon glyphicon-star-empty"></span></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row text-center">
-                    <ul class="pagination">
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 <foot></foot>
 </body>

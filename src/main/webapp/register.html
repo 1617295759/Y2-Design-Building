@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Mobile Shop</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/template.css">
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="fonts/font-slider.css" type="text/css">
+    <!-- jQuery and Modernizr-->
+    <script src="js/jquery-2.1.1.js"></script>
+    <!-- Core JavaScript Files -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="js/axios.js"></script>
+    <script type="text/javascript" src="js/vue.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("top").load("./module/top.html")
+            $("foot").load("./module/foot.html")
+        });
+    </script>
+</head>
+
+<body>
+<top></top>
+<div id="page-content" class="single-page">
+    <div style="background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1603192800926&di=ab1926eed7f7a8e367af0fd32b1b838c&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fbackgd%2Fcover%2F00%2F27%2F12%2F5bbb331c79582.jpg%2521%2Ffw%2F780%2Fquality%2F90%2Funsharp%2Ftrue%2Fcompress%2Ftrue');
+        background-size:100% 100% ; background-attachment: fixed;">
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="breadcrumb">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="account.html">Account</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6" style="background-color: #d9edf7;margin-right:30px;float:right">
+                <div class="heading"><h2>New User ? Create An Account.</h2></div>
+                <form name="form2" id="ff2">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Your Name :" name="username"
+                               id="rname" required="required">
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" class="form-control" placeholder="Email :" name="email" id="email"
+                               required="required">
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" class="form-control" placeholder="Mobile :" name="phone"
+                               id="phone" required="required">
+                    </div>
+                    <div class="form-group">
+                        <input name="gender" type="radio" value="male"> Male
+                        <input name="gender" type="radio" value="female"> Female
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Address :" name="address"
+                               id="address" required="required">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Password :" name="password"
+                               id="rpassword" required="required">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Retype Password :" name="repassword"
+                               id="rrepassword" required="required">
+                    </div>
+                </form>
+                <div style="margin: 0 auto;">
+                    <button type="button" id="register" class="btn btn-1" @click="register()"
+                        style="float:right;margin-right:20px;">Create</button>
+                </div>
+                <a href="register.html">Log In Now</a>
+            </div>
+        </div>
+    </div>
+</div>
+<foot></foot>
+</body>
+<script src="event/register.js"></script>
+</html>

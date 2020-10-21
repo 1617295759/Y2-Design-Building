@@ -12,6 +12,9 @@ html, body {
     padding: 0;
     margin: 0;
     overflow-x: hidden;
+    background-image: url("/images/back3.jpg");
+    background-size:100% 100% ;
+    background-attachment: fixed;
 }
 
 
@@ -276,7 +279,7 @@ header .form-search button:hover {
 }
 
 #page-content.home-page {
-    margin: 50px 0;
+    margin-bottom: 50px;
 }
 
 #page-content.single-page {
@@ -355,12 +358,19 @@ header .form-search button:hover {
 }
 
 .products .product {
-    margin-bottom: 20px;
-    margin-right: 20px;
+    margin-bottom: 20px;    margin-right: 20px;
     border: 2px outset 	#F0E68C;
     border-top: 6px solid 	#FFD700;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
+
+    width: 100%;height: 35vw;
+    background-color:#DB9BB5;
+}
+
+.product img{
+    background-size: contain;
+    width: 100%;height: 20vw;
 }
 
 .product .image-more {
@@ -679,6 +689,7 @@ footer .copyright ul li {
     color: #fff;
     font-size: 25px;
     padding: 10px 15px;
+    margin:0 auto;
 }
 
 .btn.btn-2 {
@@ -691,3 +702,17 @@ footer .copyright ul li {
     padding-right: 10px;
     border-right: 3px solid #ed9c28;
 }
+.nav ul li{
+    border-bottom: 1px solid #E9D68E;
+}
+.banner img{
+    border-radius: 25px;
+    border: 1px solid #F9D64B;
+}
+foot{
+    padding: 0;
+}
+#description img{
+    width: 100%;
+}
+

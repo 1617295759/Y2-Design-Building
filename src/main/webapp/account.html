@@ -54,6 +54,9 @@
         </div>
         <div class="row">
             <div class="col-md-6">
+                <img src="images/log-left.png" alt="">
+            </div>
+            <div class="col-md-6">
                 <div class="heading"><h2>Login</h2></div>
                 <form name="form1" id="ff1">
                     <div class="form-group">
@@ -65,43 +68,10 @@
                                required="required">
                     </div>
                     <button type="button" class="btn btn-1" name="login" id="login" @click="login()">Login</button>
-                    <a href="#">Forgot Your Password ?</a>
+                    <a href="register.html">Don't have an acount ?</a>
                 </form>
             </div>
-            <div class="col-md-6">
-                <div class="heading"><h2>New User ? Create An Account.</h2></div>
-                <form name="form2" id="ff2">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Your Name :" name="username"
-                               id="rname" required="required">
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" class="form-control" placeholder="Email :" name="email" id="email"
-                               required="required">
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" class="form-control" placeholder="Mobile :" name="phone"
-                               id="phone" required="required">
-                    </div>
-                    <div class="form-group">
-                        <input name="gender" type="radio" value="male"> Male
-                        <input name="gender" type="radio" value="female"> Female
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Address :" name="address"
-                               id="address" required="required">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Password :" name="password"
-                               id="rpassword" required="required">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Retype Password :" name="repassword"
-                               id="rrepassword" required="required">
-                    </div>
-                    <button type="button" id="register" class="btn btn-1" @click="register()">Create</button>
-                </form>
-            </div>
+
         </div>
     </div>
 </div>

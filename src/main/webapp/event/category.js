@@ -37,7 +37,7 @@ var catevue = new Vue({
             var that = this;
             let data = new URLSearchParams();
             data.append('choice', choice);
-            data.append('key', contend);
+            data.append('key', encodeURI(contend));
             axios({
                 url: './product',
                 method: 'post',

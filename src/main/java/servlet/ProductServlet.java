@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,12 +30,17 @@ public class ProductServlet extends HttpServlet {
 			throws IOException {
 		String choice = req.getParameter("choice");
 		String key = req.getParameter("key");
+		key = URLDecoder.decode(key, "UTF-8");
 		ProductDAO dao = new ProductDAOImpl();
 		List<Product> products = new ArrayList<Product>();
 		switch(choice) {
 			case "keywords":
 				//keywords
-				products = dao.searchKey(key);
+				if(key != null ){
+					products = dao.searchKey(key);
+				}else{
+					products = dao.sortByAddedtimeAsc();
+				}
 				break;
 			case "Category":
 				//kind

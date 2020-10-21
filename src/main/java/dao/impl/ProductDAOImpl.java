@@ -101,12 +101,12 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<Product> searchPriceDomain(int index) {
 		double low,high;
 		List<Product> list = new ArrayList<Product>();
-		low = index*50;high=low+50;
+		low = index*500;high=low+500;
 		if(index==1)low=0;
 		if(index==6)high=10000;
 
 		String sql = "select * from "+ dbname+ ".commodity " +
-				"where deleted = 0 and price>? and price<?";
+				"where deleted = 0 and price>? and price<? order by price";
 		list = template.query(sql,new BeanPropertyRowMapper<Product>(Product.class),low,high);
 		return list;
 	}

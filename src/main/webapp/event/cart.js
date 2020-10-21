@@ -260,10 +260,17 @@ var cartvue = new Vue({
                     .then(function (response) {
                         console.log("Modify 服务器响应数据 flag：")
                         console.log(response.data.flag);
-                        that.$message({
-                            type: 'success',
-                            message: 'Modify successfully ! '
-                        });
+                        if(response.data.flag==1){
+                            that.$message({
+                                type: 'success',
+                                message: 'Modify successfully ! '
+                            });
+                        }else{
+                            that.$message({
+                                type: 'warning',
+                                message: 'The username already exists ! '
+                            });
+                        }
                     })
                     .catch(function (error) {
                         console.log(error);

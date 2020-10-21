@@ -74,7 +74,7 @@ public class UserDAOImpl implements UserDAO {
                 user.getPassword(),user.getAddress(),user.getEmail(),0);
         //返回新增数据的ID
         String sql1 = "select userID from " + user_schema + " where name=?";
-        int userID = template.queryForObject(sql, Integer.class,user.getName());
+        int userID = template.queryForObject(sql1, Integer.class,user.getName());
         return userID;
     }
 
@@ -140,7 +140,11 @@ public class UserDAOImpl implements UserDAO {
                 sql = "UPDATE "+ user_schema +" SET `email` = ? WHERE (`userID` = ?)";
                 break;
         }
-        i = template.update(sql,info,userid);
+        try{
+            i = template.update(sql,info,userid);
+        }catch(Exception e){
+            i=0;
+        }
         return (i>0);
     }
 }
