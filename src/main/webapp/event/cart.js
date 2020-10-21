@@ -3,6 +3,7 @@ var cartvue = new Vue({
     data: {
         user:{},
         type:'cart',
+        drawer:false,
         //购物车
         carts: [],
         sum: 0,
@@ -429,6 +430,53 @@ var cartvue = new Vue({
                     type: 'info',
                     message: 'Modify Canceled'
                 });
+            });
+        },
+        modifypassword() {
+            let that = this;
+            this.$prompt('Please repeat your password', 'Modify Info', {
+                confirmButtonText: 'Confirm',
+                cancelButtonText: 'Cancel'
+            }).then(({ value }) => {
+                if(that.user.password ==value){
+                    this.$prompt('Please Type in your new password ', 'New Password', {
+                        confirmButtonText: 'Confirm',
+                        cancelButtonText: 'Cancel',
+                        inputPattern: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/,
+                        inputErrorMessage: 'length between 6-18, including letters and nummbers'
+                    }).then(({ value }) => {
+                        let data = new URLSearchParams();
+                        data.append('userid', that.user.userId);
+                        data.append('password', value);
+                        axios({
+                            url: './modifyuserinfo',
+                            method: 'post',
+                            async: false,
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            data: data
+                        })
+                            .then(function (response) {
+                                console.log("Modify 服务器响应数据 flag：")
+                                console.log(response.data.flag);
+                                that.$message({
+                                    type: 'success',
+                                    message: 'Modify successfully ! '
+                                });
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    }).catch(() => {
+                        that.$message({
+                            type: 'info',
+                            message: 'Modify Canceled'
+                        });
+                    });
+                }else{
+                    this.$message.error('Wrong Password');
+                }
             });
         },
         dateFormat(time) {

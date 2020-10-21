@@ -32,6 +32,11 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </head>
 <body>
 <top></top>
@@ -127,8 +132,7 @@
                         </div>
                         <div id="review" class="tab-pane fade">
                             <div class="review-text">
-                                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                                    ea commodo consequat.</p>
+                                <p>If you have any question, tell us !.</p>
                             </div>
                             <div class="review-form">
                                 <h4>Write a review</h4>
@@ -142,8 +146,8 @@
                                         <textarea name="message" id="message"></textarea>
                                     </label>
                                     <div class="text-right">
-                                        <input class="btn btn-default" type="reset" name="reset" value="Reset">
-                                        <input class="btn btn-default" type="submit" name="Submit" value="Submit">
+                                        <input class="btn btn-default" type="reset" value="Reset">
+                                        <input class="btn btn-default" @click="review" type="button" value="Submit">
                                     </div>
                                 </form>
                             </div>

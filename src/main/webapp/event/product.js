@@ -117,6 +117,12 @@ var catevue = new Vue({
                 .catch(function (error) {
                     console.log(error);
                 });
+        },
+        review: function(){
+            this.$message({
+                message: 'Review successfully submitted',
+                type: 'success'
+            });
         }
     }
 })

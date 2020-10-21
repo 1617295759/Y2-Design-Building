@@ -139,6 +139,9 @@ public class UserDAOImpl implements UserDAO {
             case "email":
                 sql = "UPDATE "+ user_schema +" SET `email` = ? WHERE (`userID` = ?)";
                 break;
+            case "password":
+                sql = "UPDATE "+ user_schema +" SET `password` = ? WHERE (`userID` = ?)";
+                break;
         }
         try{
             i = template.update(sql,info,userid);

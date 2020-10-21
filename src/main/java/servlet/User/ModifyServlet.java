@@ -48,6 +48,8 @@ public class ModifyServlet extends HttpServlet {
 			flag = dao.updateInfo(userid,"address",req.getParameter("address"));
 		}else if(req.getParameter("email")!=null){
 			flag = dao.updateInfo(userid,"email",req.getParameter("email"));
+		}else if(req.getParameter("password")!=null){
+			flag = dao.updateInfo(userid,"password",req.getParameter("password"));
 		}
 
 		//在session中更新用户信息

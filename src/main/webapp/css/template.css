@@ -346,6 +346,7 @@ header .form-search button:hover {
 
 .products {
     text-align: center;
+    margin-right: 2%;
 }
 
 .products:after, .products:before {
@@ -368,7 +369,27 @@ header .form-search button:hover {
     background-color:#DB9BB5;
 }
 
-.product img{
+.products .aorder{
+    width: 100%;
+    border-radius:10px;
+    margin-right: 20px;
+    background-color:#faf2cc;
+}
+.products .aorder img{
+    width: 70%;height: 10vw;
+    border-radius:100px;
+    border:2px solid #ebccd1;
+}
+.products .acart{
+    border-radius:10px;
+    background-color:#faf2cc;
+}
+.products .acart img{
+    border-radius:100px;
+    border:2px solid #ebccd1;
+}
+
+.product .image img{
     background-size: contain;
     width: 100%;height: 20vw;
 }
@@ -453,7 +474,6 @@ header .form-search button:hover {
 
 .pricedetails {
     margin-top: 20px;
-
 }
 
 .pricedetails table td {
@@ -715,4 +735,7 @@ foot{
 #description img{
     width: 100%;
 }
-
+.el-drawer tr{
+    margin-bottom:30px;
+    height:60px;
+}
