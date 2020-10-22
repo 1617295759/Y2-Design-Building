@@ -71,7 +71,9 @@ public class Cart {
             ", time=" + time +
             ", amount=" + amount +
             ", price=" + price +
+            ", color='" + color + '\'' +
             ", deleted=" + deleted +
+            ", product=" + product +
             '}';
   }
 }
