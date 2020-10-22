@@ -18,6 +18,19 @@ var catevue = new Vue({
             that.sortchoice = choice;
             that.sorthow = how;
             that.getProducts(choice,how);
+
+            //价格滑块
+            $( "#slider-range" ).slider({
+                range: true,
+                min: 0,
+                max: 500,
+                values: [ 75, 300 ],
+                slide: function( event, ui ) {
+                    $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+                }
+            });
+            $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+                " - $" + $( "#slider-range" ).slider( "values", 1 ) );
         });
     },
     methods: {
@@ -35,9 +48,34 @@ var catevue = new Vue({
         },
         getProducts: function (choice,contend) {
             var that = this;
+            that.sortchoice = choice;
+            that.sorthow = contend;
             let data = new URLSearchParams();
             data.append('choice', choice);
             data.append('key', encodeURI(contend));
+            axios({
+                url: './product',
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: data
+            })
+                .then(function (response) {
+                    console.log("product服务器响应数据：");
+                    console.log(response.data.products);
+                    that.products = response.data.products;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+        searchdomain: function(){
+            var that = this;
+            let data = new URLSearchParams();
+            data.append('choice', "sliderdomain");
+            data.append('low', $( "#slider-range" ).slider( "values", 0 ));
+            data.append('high', $( "#slider-range" ).slider( "values", 1 ));
             axios({
                 url: './product',
                 method: 'post',

@@ -30,13 +30,15 @@ public class ProductServlet extends HttpServlet {
 			throws IOException {
 		String choice = req.getParameter("choice");
 		String key = req.getParameter("key");
-		key = URLDecoder.decode(key, "UTF-8");
+		if(key!=null){
+			key = URLDecoder.decode(key, "UTF-8");
+		}
 		ProductDAO dao = new ProductDAOImpl();
 		List<Product> products = new ArrayList<Product>();
 		switch(choice) {
 			case "keywords":
 				//keywords
-				if(key != null ){
+				if(key != null && key.length()>0 ){
 					products = dao.searchKey(key);
 				}else{
 					products = dao.sortByAddedtimeAsc();
@@ -63,6 +65,11 @@ public class ProductServlet extends HttpServlet {
 				break;
 			case "PriceDomain":
 				products = dao.searchPriceDomain(Integer.parseInt(key));
+				break;
+			case "sliderdomain":
+				String low = req.getParameter("low");
+				String high = req.getParameter("high");
+				products = dao.searchPriceDomain(Integer.parseInt(low),Integer.parseInt(high));
 				break;
 		}
 

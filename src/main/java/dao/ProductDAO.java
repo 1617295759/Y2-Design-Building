@@ -21,5 +21,6 @@ public interface ProductDAO {
 	public List<Product> sortByPriceAsc();
 	//按照价格区间检索
 	public List<Product> searchPriceDomain(int index);
+	public List<Product> searchPriceDomain(int low,int high);
 
 }

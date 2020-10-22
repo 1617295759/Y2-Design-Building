@@ -110,4 +110,12 @@ public class ProductDAOImpl implements ProductDAO {
 		list = template.query(sql,new BeanPropertyRowMapper<Product>(Product.class),low,high);
 		return list;
 	}
+	@Override
+	public List<Product> searchPriceDomain(int low,int high) {
+		List<Product> list = new ArrayList<Product>();
+		String sql = "select * from "+ dbname+ ".commodity " +
+				"where deleted = 0 and price>? and price<? order by price";
+		list = template.query(sql,new BeanPropertyRowMapper<Product>(Product.class),low,high);
+		return list;
+	}
 }

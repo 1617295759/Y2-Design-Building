@@ -33,6 +33,10 @@
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <!-- 引入组件库 -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+    <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+    <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
 </head>
 <body>
 <top></top>
@@ -55,7 +59,7 @@
             </div>
         </div>
         <div class="row">
-            <div id="main-content" class="col-xs-12" v-if="products.length!=0">
+            <div id="main-content" class="col-xs-9" v-if="products.length!=0">
                 <div class="products">
                     <div class="col-lg-4 col-md-4 col-xs-12" v-for="(product,index) in products" :key="index">
                         <div class="product">
@@ -77,6 +81,48 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div id="sidebar" class="col-xs-3" style="float: right">
+                <div class="widget wid-discouts">
+                    <div class="heading"><h4>PRICE</h4></div>
+                    <input disabled type="text" id="amount" style="width: 100%;text-align: center; color:#f6931f; font-weight:bold;">
+                    <div id="slider-range" class="col-xs-9"></div>
+                    <i class="el-icon-zoom-in col-xs-3" @click="searchdomain"></i>
+                </div>
+                <div class="widget wid-discouts">
+                    <div class="heading"><h4>Keyword</h4></div>
+                    <el-input
+                            placeholder="keyword"
+                            suffix-icon="el-icon-search"
+                            v-model="keyword">
+                    </el-input>
+                </div>
+                <div class="widget wid-categories">
+                    <div class="heading"><h4>CATEGORIES</h4></div>
+                    <div class="content">
+                        <ul>
+                            <li @click="getProducts('Category','Electronic organ')"><a href="#">Electronic organ</a></li>
+                            <li @click="getProducts('Category','Saxophone')"><a href="#">Saxophone</a></li>
+                            <li @click="getProducts('Category','Guitar')"><a href="#">Guitar</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="widget wid-categories">
+                    <div class="heading"><h4>FUNCTIONALITY</h4></div>
+                    <div class="content">
+                        <ul>
+                            <li @click="getProducts('Functionality','Chord recogonition')"><a href="#">Chord
+                                recogonition</a></li>
+                            <li @click="getProducts('Functionality','Basic function')"><a href="#">Basic function</a></li>
+                            <li @click="getProducts('Functionality','Standard intonation')"><a href="#">Standard
+                                intonation</a></li>
+                            <li @click="getProducts('Functionality','Advanced Material')"><a href="#">Advanced Material</a>
+                            </li>
+                            <li @click="getProducts('Functionality','null')"><a href="#">Others</a></li>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
